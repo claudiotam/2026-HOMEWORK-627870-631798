@@ -1,4 +1,8 @@
-package com.claudsamu.diadia;
+package it.uniroma3.diadia.giocatore;
+
+import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Giocatore {
 
@@ -7,12 +11,14 @@ public class Giocatore {
     private Borsa borsa;
     private int cfu;
     private Stanza stanzaCorrente;
+    private IOConsole ioconsole;
 
-    public Giocatore() {
-        this(CFU_INIZIALI);
+    public Giocatore(IOConsole ioconsole) {
+        this(ioconsole, CFU_INIZIALI);
     }
 
-    public Giocatore(int cfu_iniziali) {
+    public Giocatore(IOConsole ioconsole, int cfu_iniziali) {
+        this.ioconsole = ioconsole;
         this.borsa = new Borsa();
         this.cfu = cfu_iniziali;
     }
@@ -23,11 +29,11 @@ public class Giocatore {
      */
     public void vai(String direzione) {
         if(direzione==null)
-            System.out.println("Dove vuoi andare ?");
+            ioconsole.mostraMessaggio("Dove vuoi andare ?");
         Stanza prossimaStanza = null;
         prossimaStanza = this.stanzaCorrente.getStanzaAdiacente(direzione);
         if (prossimaStanza == null)
-            System.out.println("Direzione inesistente");
+            ioconsole.mostraMessaggio("Direzione inesistente");
         else {
             stanzaCorrente = prossimaStanza;
             this.removeCfu();
@@ -98,39 +104,39 @@ public class Giocatore {
     public void prendi(String nomeAttrezzo) {
         boolean trovato = this.stanzaCorrente.hasAttrezzo(nomeAttrezzo);
         if (!trovato) {
-            System.err.println("attrezzo non trovato");
+            ioconsole.mostraMessaggio("attrezzo non trovato");
             return;
         }
 
         Attrezzo attrezzo = this.stanzaCorrente.getAttrezzo(nomeAttrezzo);
         boolean centra = this.borsa.acceptsAttrezzo(attrezzo);
         if (!centra) {
-            System.err.println("attrezzo non c'entra");
+            ioconsole.mostraMessaggio("attrezzo non c'entra");
             return;
         }
 
         this.stanzaCorrente.removeAttrezzo(nomeAttrezzo);
         this.borsa.addAttrezzo(attrezzo);
-        System.err.println("attrezzo preso");
+        ioconsole.mostraMessaggio("attrezzo preso");
     }
 
     public void posa(String nomeAttrezzo) {
         boolean trovato = this.borsa.hasAttrezzo(nomeAttrezzo);
         if (!trovato) {
-            System.err.println("attrezzo non trovato");
+            ioconsole.mostraMessaggio("attrezzo non trovato");
             return;
         }
 
         Attrezzo attrezzo = this.borsa.getAttrezzo(nomeAttrezzo);
         boolean centra = this.stanzaCorrente.acceptsAttrezzo(attrezzo);
         if (!centra) {
-            System.err.println("attrezzo non c'entra");
+            ioconsole.mostraMessaggio("attrezzo non c'entra");
             return;
         }
         
         this.borsa.removeAttrezzo(nomeAttrezzo);
         this.stanzaCorrente.addAttrezzo(attrezzo);
-        System.err.println("attrezzo posato");
+        ioconsole.mostraMessaggio("attrezzo posato");
     }
 
 }

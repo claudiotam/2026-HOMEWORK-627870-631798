@@ -9,7 +9,7 @@
  */
 
 
-package com.claudsamu.diadia;
+package it.uniroma3.diadia.ambienti;
 
 public class LabirintoBuilder {
 

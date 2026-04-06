@@ -10,7 +10,7 @@
  * @version base
  */
 
-package com.claudsamu.diadia;
+package it.uniroma3.diadia;
 
 import java.util.Scanner;
 

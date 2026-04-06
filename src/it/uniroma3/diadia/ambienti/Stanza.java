@@ -9,7 +9,9 @@
  * @version base
  */
 
-package com.claudsamu.diadia;
+package it.uniroma3.diadia.ambienti;
+
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Stanza {
 
@@ -97,8 +99,6 @@ public class Stanza {
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Controlla se un oggetto puà entrare in una stanza.
      * @param attrezzo l'attrezzo da mettere nella stanza.
      * @return true se è possibile aggiungere l'attrezzo, false atrimenti.
@@ -109,7 +109,6 @@ public class Stanza {
     }
 
     /**
->>>>>>> 2db0dea (Aggiunte altre classi)
      * Mette un attrezzo nella stanza.
      * @param attrezzo l'attrezzo da mettere nella stanza.
      * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
@@ -126,51 +125,11 @@ public class Stanza {
     }
 
     /**
-<<<<<<< HEAD
-     * Restituisce una rappresentazione stringa di questa stanza,
-     * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
-     * @return la rappresentazione stringa
-     */
-    public String toString() {
-        StringBuilder risultato = new StringBuilder();
-        risultato.append("Ti trovi qui: \n");
-        risultato.append(this.nome);
-        risultato.append("\nUscite: ");
-        for (String direzione : this.direzioni)
-            if (direzione!=null)
-                risultato.append(direzione+" ");
-        risultato.append("\nAttrezzi nella stanza: ");
-        boolean nessunAttrezzo = false;
-        for (Attrezzo attrezzo : this.attrezzi) {
-            if(attrezzo!=null) {
-                nessunAttrezzo = true;
-                risultato.append(attrezzo.toString()+" ");
-            }
-        }
-        if(!nessunAttrezzo)
-            risultato.append("nessun attrezzo");
-
-        risultato.append("\n");
-        return risultato.toString();
-    }
-    /**
-=======
->>>>>>> 2db0dea (Aggiunte altre classi)
      * Controlla se un attrezzo esiste nella stanza (uguaglianza sul nome).
      * @return true se l'attrezzo esiste nella stanza, false altrimenti.
      */
     public boolean hasAttrezzo(String nomeAttrezzo) {
-<<<<<<< HEAD
-        boolean trovato;
-        trovato = false;
-        for (Attrezzo attrezzo : this.attrezzi) {
-            if (attrezzo.getNome().equals(nomeAttrezzo))
-                trovato = true;
-        }
-        return trovato;
-=======
         return this.getAttrezzo(nomeAttrezzo) != null;
->>>>>>> 2db0dea (Aggiunte altre classi)
     }
 
     /**
@@ -180,22 +139,12 @@ public class Stanza {
      *            null se l'attrezzo non e' presente.
      */
     public Attrezzo getAttrezzo(String nomeAttrezzo) {
-<<<<<<< HEAD
-        Attrezzo attrezzoCercato;
-        attrezzoCercato = null;
-        for (Attrezzo attrezzo : this.attrezzi) {
-            if (attrezzo.getNome().equals(nomeAttrezzo))
-                attrezzoCercato = attrezzo;
-        }
-        return attrezzoCercato;    
-=======
         for (int i = 0; i < this.numeroAttrezzi; i++) {
             if (attrezzi[i].getNome().equals(nomeAttrezzo)) {
                 return attrezzi[i];
             }
         }
         return null;
->>>>>>> 2db0dea (Aggiunte altre classi)
     }
 
     /**
@@ -203,11 +152,6 @@ public class Stanza {
      * @param nomeAttrezzo
      * @return true se l'attrezzo e' stato rimosso, false altrimenti
      */
-<<<<<<< HEAD
-    public boolean removeAttrezzo(Attrezzo attrezzo) {
-        // TODO da implementare
-        return false;
-=======
     public boolean removeAttrezzo(String nomeAttrezzo) {
         int w = 0;
         int r = 0;
@@ -222,7 +166,6 @@ public class Stanza {
             this.numeroAttrezzi = w;
             return true;
         }
->>>>>>> 2db0dea (Aggiunte altre classi)
     }
 
 
@@ -233,8 +176,6 @@ public class Stanza {
         return direzioni;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Restituisce una rappresentazione stringa di questa stanza,
      * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
@@ -261,5 +202,4 @@ public class Stanza {
         return risultato.toString();
     }
 
->>>>>>> 2db0dea (Aggiunte altre classi)
 }
