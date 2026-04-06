@@ -36,7 +36,7 @@ public class Giocatore {
             ioconsole.mostraMessaggio("Direzione inesistente");
         else {
             stanzaCorrente = prossimaStanza;
-            this.removeCfu();
+            this.togliUnCfu();
         }
     }
 
@@ -82,7 +82,7 @@ public class Giocatore {
         this.cfu = cfu;
     }
 
-    public void removeCfu() {
+    public void togliUnCfu() {
         this.cfu--;
     }
     

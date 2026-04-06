@@ -9,7 +9,6 @@
 package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Partita {
@@ -131,6 +130,14 @@ public class Partita {
      */
     public void setFinita() {
         this.finita = true;
+    }
+
+    public Giocatore getGiocatore() {
+        return this.giocatore;
+    }
+
+    public Labirinto getLabirinto() {
+        return this.labirinto;
     }
 
 }

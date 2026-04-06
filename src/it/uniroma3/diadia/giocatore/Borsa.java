@@ -30,6 +30,7 @@ public class Borsa {
     }
 
     public boolean acceptsAttrezzo(Attrezzo attrezzo) {
+    	if (attrezzo == null) return false;
         if (this.getPeso() + attrezzo.getPeso() > this.pesoMax)
             return false;
         if (this.numeroAttrezzi == 10)
@@ -38,6 +39,7 @@ public class Borsa {
     }
 
     public boolean addAttrezzo(Attrezzo attrezzo) {
+    	if (attrezzo == null) return false;
         if (this.getPeso() + attrezzo.getPeso() > this.pesoMax)
             return false;
         if (this.numeroAttrezzi == 10)
