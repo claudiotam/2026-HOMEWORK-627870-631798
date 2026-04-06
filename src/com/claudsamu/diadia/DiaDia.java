@@ -12,6 +12,7 @@
 
 package com.claudsamu.diadia;
 
+<<<<<<< HEAD
 import java.util.Scanner;
 
 public class DiaDia {
@@ -110,5 +111,12 @@ public class DiaDia {
     public static void main(String[] argc) {
         DiaDia gioco = new DiaDia();
         gioco.gioca();
+=======
+public class DiaDia {
+
+    public static void main(String[] argc) {
+        Partita partita = new Partita();
+        partita.gioca();
+>>>>>>> 2db0dea (Aggiunte altre classi)
     }
 }

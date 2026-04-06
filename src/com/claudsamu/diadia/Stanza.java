@@ -97,6 +97,19 @@ public class Stanza {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Controlla se un oggetto puà entrare in una stanza.
+     * @param attrezzo l'attrezzo da mettere nella stanza.
+     * @return true se è possibile aggiungere l'attrezzo, false atrimenti.
+     */
+    public boolean acceptsAttrezzo(Attrezzo attrezzo) {
+        if (this.numeroAttrezzi < NUMERO_MASSIMO_ATTREZZI) return true;
+        else return false;
+    }
+
+    /**
+>>>>>>> 2db0dea (Aggiunte altre classi)
      * Mette un attrezzo nella stanza.
      * @param attrezzo l'attrezzo da mettere nella stanza.
      * @return true se riesce ad aggiungere l'attrezzo, false atrimenti.
@@ -113,6 +126,7 @@ public class Stanza {
     }
 
     /**
+<<<<<<< HEAD
      * Restituisce una rappresentazione stringa di questa stanza,
      * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
      * @return la rappresentazione stringa
@@ -140,10 +154,13 @@ public class Stanza {
         return risultato.toString();
     }
     /**
+=======
+>>>>>>> 2db0dea (Aggiunte altre classi)
      * Controlla se un attrezzo esiste nella stanza (uguaglianza sul nome).
      * @return true se l'attrezzo esiste nella stanza, false altrimenti.
      */
     public boolean hasAttrezzo(String nomeAttrezzo) {
+<<<<<<< HEAD
         boolean trovato;
         trovato = false;
         for (Attrezzo attrezzo : this.attrezzi) {
@@ -151,6 +168,9 @@ public class Stanza {
                 trovato = true;
         }
         return trovato;
+=======
+        return this.getAttrezzo(nomeAttrezzo) != null;
+>>>>>>> 2db0dea (Aggiunte altre classi)
     }
 
     /**
@@ -160,6 +180,7 @@ public class Stanza {
      *            null se l'attrezzo non e' presente.
      */
     public Attrezzo getAttrezzo(String nomeAttrezzo) {
+<<<<<<< HEAD
         Attrezzo attrezzoCercato;
         attrezzoCercato = null;
         for (Attrezzo attrezzo : this.attrezzi) {
@@ -167,6 +188,14 @@ public class Stanza {
                 attrezzoCercato = attrezzo;
         }
         return attrezzoCercato;    
+=======
+        for (int i = 0; i < this.numeroAttrezzi; i++) {
+            if (attrezzi[i].getNome().equals(nomeAttrezzo)) {
+                return attrezzi[i];
+            }
+        }
+        return null;
+>>>>>>> 2db0dea (Aggiunte altre classi)
     }
 
     /**
@@ -174,9 +203,26 @@ public class Stanza {
      * @param nomeAttrezzo
      * @return true se l'attrezzo e' stato rimosso, false altrimenti
      */
+<<<<<<< HEAD
     public boolean removeAttrezzo(Attrezzo attrezzo) {
         // TODO da implementare
         return false;
+=======
+    public boolean removeAttrezzo(String nomeAttrezzo) {
+        int w = 0;
+        int r = 0;
+        for (r = 0; r < this.numeroAttrezzi; r++) {
+            if (!this.attrezzi[r].getNome().equals(nomeAttrezzo)) {
+                if (r != w) this.attrezzi[w] = this.attrezzi[r];
+                w++;
+            }
+        }
+        if (r == w) return false;
+        else {
+            this.numeroAttrezzi = w;
+            return true;
+        }
+>>>>>>> 2db0dea (Aggiunte altre classi)
     }
 
 
@@ -187,4 +233,33 @@ public class Stanza {
         return direzioni;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Restituisce una rappresentazione stringa di questa stanza,
+     * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
+     * @return la rappresentazione stringa
+     */
+    public String toString() {
+        StringBuilder risultato = new StringBuilder();
+        risultato.append("Ti trovi qui: ");
+        risultato.append(this.nome);
+        risultato.append("\nUscite: ");
+        for (String direzione : this.direzioni)
+            if (direzione!=null)
+                risultato.append(direzione+" ");
+        risultato.append("\nAttrezzi nella stanza: ");
+        boolean qualcheAttrezzo = false;
+        for (int i=0; i<this.numeroAttrezzi; i++) {
+            qualcheAttrezzo = true;
+            risultato.append(attrezzi[i].toString()+" ");
+        }
+        if(!qualcheAttrezzo)
+            risultato.append("nessun attrezzo");
+
+        risultato.append("\n");
+        return risultato.toString();
+    }
+
+>>>>>>> 2db0dea (Aggiunte altre classi)
 }

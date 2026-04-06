@@ -1,0 +1,27 @@
+############################################################
+# Eclipse / Java Project Artifacts
+############################################################
+
+# Compiled output directory (Eclipse default)
+bin/
+
+# Eclipse project settings (workspace-specific, not portable)
+.settings/
+
+# Eclipse project metadata files
+.classpath
+.project
+
+
+############################################################
+# VSCode Settings
+############################################################
+
+# Local VSCode configuration (user/machine specific)
+.vscode/
+
+############################################################
+# Personal instruction files
+############################################################
+
+istruzioni*.txt
