@@ -15,7 +15,7 @@ package it.uniroma3.diadia;
 public class DiaDia {
 
     public static void main(String[] argc) {
-        IOConsole ioconsole = new IOConsole();
+        IO ioconsole = new IOConsole();
         Partita partita = new Partita(ioconsole);
         partita.gioca();
     }

@@ -83,14 +83,6 @@ public class Stanza {
     }
 
     /**
-     * Restituisce la descrizione della stanza.
-     * @return la descrizione della stanza
-     */
-    public String getDescrizione() {
-        return this.toString();
-    }
-
-    /**
      * Restituisce la collezione di attrezzi presenti nella stanza.
      * @return la collezione di attrezzi nella stanza.
      */
@@ -179,11 +171,15 @@ public class Stanza {
     }
 
     /**
+     * Restituisce la descrizione della stanza.
+     * @return la descrizione della stanza
+     */
+    /**
      * Restituisce una rappresentazione stringa di questa stanza,
      * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
      * @return la rappresentazione stringa
      */
-    public String toString() {
+    public String getDescrizione() {
         StringBuilder risultato = new StringBuilder();
         risultato.append("Ti trovi qui: ");
         risultato.append(this.nome);

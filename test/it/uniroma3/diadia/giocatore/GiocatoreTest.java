@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.IO;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +18,7 @@ class GiocatoreTest {
 	@BeforeEach
 	void setUp() {
 		// Setup per ogni test, viene eseguito prima di ciascun test
-		IOConsole ioconsole = new IOConsole();
+		IO ioconsole = new IOConsole();
 		this.giocatore = new Giocatore(ioconsole);
 	}
 

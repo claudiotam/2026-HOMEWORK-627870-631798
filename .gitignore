@@ -1,33 +1,17 @@
-############################################################
-# Eclipse / Java Project Artifacts
-############################################################
+# Ignore everything
+*
 
-# Compiled output directory (Eclipse default)
-bin/
+# Allow folders themselves (needed so Git can descend into them)
+!*/
 
-# Eclipse project settings (workspace-specific, not portable)
-.settings/
+# Keep specific root files
+!.gitignore
+!README.md
 
-# Eclipse project metadata files
-.classpath
-.project
+# Un-ignore src and test folders
+!src/
+!test/
 
-
-############################################################
-# VSCode Settings
-############################################################
-
-# Local VSCode configuration (user/machine specific)
-.vscode/
-
-############################################################
-# Personal instruction files
-############################################################
-
-istruzioni*.txt
-
-############################################################
-# Dropbox files
-############################################################
-.fileproviderignore
-dropboxignore.ps1
+# Un-ignore everything inside them
+!src/**
+!test/**

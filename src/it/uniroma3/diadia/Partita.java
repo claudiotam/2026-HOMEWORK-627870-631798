@@ -9,6 +9,8 @@
 package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Partita {
@@ -23,15 +25,13 @@ public class Partita {
         "o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
         "Per conoscere le istruzioni usa il comando 'aiuto'.";
     
-    static final private String[] elencoComandi = {"vai", "aiuto", "guarda", "fine", "prendi", "posa"};
-
 
     private boolean finita;
     private Giocatore giocatore;
     private Labirinto labirinto;
-    private IOConsole ioconsole;
+    private IO ioconsole;
     
-    public Partita(IOConsole ioconsole) {
+    public Partita(IO ioconsole) {
         this.ioconsole = ioconsole;
         this.labirinto = new Labirinto();
         labirinto.creaLabirintoBase();
@@ -59,47 +59,27 @@ public class Partita {
      * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
      */
     private boolean processaIstruzione(String istruzione) {
-        Comando comandoDaEseguire = new Comando(istruzione);
-
-        if (comandoDaEseguire.getNome() == null) {
-            ioconsole.mostraMessaggio("Comando mancante");
-        }
-        else if (comandoDaEseguire.getNome().equals("fine")) {
-            this.fine(); 
-            return true;
-        }
-        else if (comandoDaEseguire.getNome().equals("vai"))
-            this.giocatore.vai(comandoDaEseguire.getParametro());
-        else if (comandoDaEseguire.getNome().equals("aiuto"))
-            this.aiuto();
-        else if (comandoDaEseguire.getNome().equals("guarda"))
-            ioconsole.mostraMessaggio(this.giocatore.borsaString());
-        else if (comandoDaEseguire.getNome().equals("prendi"))
-            this.giocatore.prendi(comandoDaEseguire.getParametro());
-        else if (comandoDaEseguire.getNome().equals("posa"))
-            this.giocatore.posa(comandoDaEseguire.getParametro());
-        else
-            ioconsole.mostraMessaggio("Comando sconosciuto");
-
-        ioconsole.mostraMessaggio(this.giocatore.getStanzaCorrente().getDescrizione());
-
-        if (isFinita()) {
-            ioconsole.mostraMessaggio("Fine Partita");
-            if (this.vinta()) ioconsole.mostraMessaggio("Hai vinto!");
-            return true;
-        }
-        else return false;
+		Comando comandoDaEseguire;
+        FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(this.ioconsole);
+		comandoDaEseguire = factory.costruisciComando(istruzione);
+		comandoDaEseguire.esegui(this);
+		
+		giocatore.togliUnCfu();
+		
+		if (this.isFinita()) { 
+			if (this.vinta()) {
+				this.ioconsole.mostraMessaggio("Hai vinto!");
+			}
+			if (giocatore.hasZeroCfu()) {
+				this.ioconsole.mostraMessaggio("Hai perso! Non hai manco un CFU!");
+			}
+			this.fine();
+			return true;
+		}
+		return false;
     }
 
     // implementazioni dei comandi dell'utente:
-
-    /**
-     * Stampa informazioni di aiuto.
-     */
-    private void aiuto() {
-        String stringacomandi = String.join(" ", elencoComandi);
-        ioconsole.mostraMessaggio(stringacomandi);
-    }
 
     /**
      * Comando "Fine".

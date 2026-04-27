@@ -1,6 +1,6 @@
 package it.uniroma3.diadia.giocatore;
 
-import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -11,13 +11,13 @@ public class Giocatore {
     private Borsa borsa;
     private int cfu;
     private Stanza stanzaCorrente;
-    private IOConsole ioconsole;
+    private IO ioconsole;
 
-    public Giocatore(IOConsole ioconsole) {
+    public Giocatore(IO ioconsole) {
         this(ioconsole, CFU_INIZIALI);
     }
 
-    public Giocatore(IOConsole ioconsole, int cfu_iniziali) {
+    public Giocatore(IO ioconsole, int cfu_iniziali) {
         this.ioconsole = ioconsole;
         this.borsa = new Borsa();
         this.cfu = cfu_iniziali;
@@ -111,7 +111,7 @@ public class Giocatore {
         Attrezzo attrezzo = this.stanzaCorrente.getAttrezzo(nomeAttrezzo);
         boolean centra = this.borsa.acceptsAttrezzo(attrezzo);
         if (!centra) {
-            ioconsole.mostraMessaggio("attrezzo non c'entra");
+            ioconsole.mostraMessaggio("attrezzo non c'entra nella borsa");
             return;
         }
 
@@ -123,7 +123,7 @@ public class Giocatore {
     public void posa(String nomeAttrezzo) {
         boolean trovato = this.borsa.hasAttrezzo(nomeAttrezzo);
         if (!trovato) {
-            ioconsole.mostraMessaggio("attrezzo non trovato");
+            ioconsole.mostraMessaggio("attrezzo non trovato nella borsa");
             return;
         }
 
