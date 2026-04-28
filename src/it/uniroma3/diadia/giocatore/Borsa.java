@@ -90,7 +90,12 @@ public class Borsa {
         }
     }
 
+    @Override
     public String toString() {
+        return "<Oggetto borsa>";
+    }
+
+    public String getDescrizione() {
         StringBuilder s = new StringBuilder();
 
         if (!this.isEmpty()) {

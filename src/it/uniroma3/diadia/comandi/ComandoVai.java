@@ -2,7 +2,6 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class ComandoVai implements Comando {
@@ -21,17 +20,7 @@ public class ComandoVai implements Comando {
             this.ioconsole.mostraMessaggio("Non trovo il giocatore");
             return;
         }
-        Stanza stanzaCorrente = giocatore.getStanzaCorrente();
-        if (this.direzione == null) {
-            this.ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione");
-            return;
-        }
-        Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
-        if (prossimaStanza == null) {
-            this.ioconsole.mostraMessaggio("Direzione inesistente");
-        }
-        giocatore.setStanzaCorrente(prossimaStanza);
-        this.ioconsole.mostraMessaggio("Ora ti trovi in: " + giocatore.getStanzaCorrente().getNome());
+        giocatore.vai(this.direzione);
     }
 
     /*

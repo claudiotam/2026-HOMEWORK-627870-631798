@@ -196,7 +196,6 @@ public class Stanza {
         if(!qualcheAttrezzo)
             risultato.append("nessun attrezzo");
 
-        risultato.append("\n");
         return risultato.toString();
     }
 

@@ -36,6 +36,8 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
             comando = new ComandoFine();
         else if (nomeComando.equals("guarda"))
             comando = new ComandoGuarda();
+        else if (nomeComando.equals("borsa"))
+            comando = new ComandoBorsa();
         else
             comando = new ComandoNonValido();
         comando.setParametro(parametro);

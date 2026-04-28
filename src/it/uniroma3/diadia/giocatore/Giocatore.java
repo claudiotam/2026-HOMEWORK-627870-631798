@@ -6,7 +6,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Giocatore {
 
-    static final private int CFU_INIZIALI = 4;
+    static final private int CFU_INIZIALI = 12;
 
     private Borsa borsa;
     private int cfu;
@@ -28,16 +28,17 @@ public class Giocatore {
      * e ne stampa il nome, altrimenti stampa un messaggio di errore
      */
     public void vai(String direzione) {
-        if(direzione==null)
-            ioconsole.mostraMessaggio("Dove vuoi andare ?");
-        Stanza prossimaStanza = null;
-        prossimaStanza = this.stanzaCorrente.getStanzaAdiacente(direzione);
-        if (prossimaStanza == null)
-            ioconsole.mostraMessaggio("Direzione inesistente");
-        else {
-            stanzaCorrente = prossimaStanza;
-            this.togliUnCfu();
+        if (direzione == null) {
+            this.ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione");
+            return;
         }
+        Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(direzione);
+        if (prossimaStanza == null) {
+            this.ioconsole.mostraMessaggio("Direzione inesistente");
+            return;
+        }
+        stanzaCorrente = prossimaStanza;
+        this.ioconsole.mostraMessaggio("Ora ti trovi in: " + stanzaCorrente.getNome());
     }
 
     /*
@@ -57,10 +58,6 @@ public class Giocatore {
     
     public boolean removeAttrezzo(String attrezzo) {
         return this.borsa.removeAttrezzo(attrezzo) ;
-    }
-
-    public String borsaString() {
-        return this.borsa.toString();
     }
 
     /*
@@ -96,6 +93,10 @@ public class Giocatore {
 
     public void setStanzaCorrente(Stanza stanza) {
         this.stanzaCorrente = stanza;
+    }
+
+    public Borsa getBorsa() {
+        return this.borsa;
     }
 
     /*
