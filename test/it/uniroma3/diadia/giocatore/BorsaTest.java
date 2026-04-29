@@ -70,12 +70,12 @@ class BorsaTest {
     @Test
     public void testToString() {
         // Verifica il contenuto della borsa quando è vuota
-        assertTrue(borsa.toString().contains("vuota"), "il metodo toString di borsa vuota dovrebbe contenere la parola 'vuota'");
+        assertTrue(borsa.getDescrizione().contains("vuota"), "il metodo toString di borsa vuota dovrebbe contenere la parola 'vuota'");
 
         // Aggiungiamo un attrezzo e verifichiamo la rappresentazione della borsa
         borsa.addAttrezzo(attrezzoLeggero);
-        assertTrue(borsa.toString().contains("Contenuto borsa"), "il metodo toString di borsa piena dovrebbe contenere la parola 'Contenuto borsa'");
-        assertTrue(borsa.toString().contains("Spada"), "il metodo toString di borsa piena di spada dovrebbe contenere la parola 'Spada'");
+        assertTrue(borsa.getDescrizione().contains("Contenuto borsa"), "il metodo toString di borsa piena dovrebbe contenere la parola 'Contenuto borsa'");
+        assertTrue(borsa.getDescrizione().contains("Spada"), "il metodo toString di borsa piena di spada dovrebbe contenere la parola 'Spada'");
     }
     
     @Test

@@ -34,9 +34,6 @@ public class IOSimulator implements IO {
     }
 
     public String leggiRiga() {
-        // Scanner scannerDiLinee = new Scanner(System.in);
-        // String riga = scannerDiLinee.nextLine();
-        // return riga;
         if (messaggi_in_read_cursor < messaggi_in.length) {
             System.out.println("messaggio in  " + messaggi_in_read_cursor + " letto");
             return messaggi_in[messaggi_in_read_cursor++];
@@ -62,7 +59,7 @@ public class IOSimulator implements IO {
 
     public void stampaRegistroMessaggiOut() {
         int cur = 0;
-        System.out.println("messaggi out spediti:");
+        System.out.println("messaggi out ricevuti:");
         while (cur < messaggi_out_write_cursor) {
             System.out.println(messaggi_out[cur++]);
         }

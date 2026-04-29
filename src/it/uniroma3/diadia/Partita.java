@@ -35,7 +35,7 @@ public class Partita {
         this.ioconsole = ioconsole;
         this.labirinto = new Labirinto();
         labirinto.creaLabirintoBase();
-        this. giocatore = new Giocatore(ioconsole);
+        this.giocatore = new Giocatore(ioconsole);
         giocatore.setStanzaCorrente(labirinto.getStanzaIniziale());
         this.finita = false;
     }

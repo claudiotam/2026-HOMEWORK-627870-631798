@@ -62,7 +62,7 @@ public class LabirintoTest {
         assertEquals("Aula N11", atrio_est.getNome(), "Atrio dovrebbe avere un collegamento verso est a Aula N11");
 
         assertNotNull(atrio_sud, "Atrio dovrebbe avere un collegamento verso sud");
-        assertEquals("Aula N10", atrio_sud.getNome(), "Atrio dovrebbe avere un collegamento verso Magazzino");
+        assertEquals("Magazzino", atrio_sud.getNome(), "Atrio dovrebbe avere un collegamento verso Magazzino");
             }
 
     @Test
@@ -72,6 +72,6 @@ public class LabirintoTest {
         Stanza n10_ovest = aulaN10.getStanzaAdiacente("ovest");
 
         assertNotNull(n10_ovest, "Aula N10 dovrebbe avere un collegamento verso ovest");
-        assertEquals("Laboratorio Campus", n10_ovest.getNome(), "Aula N10 dovrebbe avere un collegamento verso ovest a LabIA");
+        assertEquals("LabIA", n10_ovest.getNome(), "Aula N10 dovrebbe avere un collegamento verso ovest a LabIA");
     }
 }
