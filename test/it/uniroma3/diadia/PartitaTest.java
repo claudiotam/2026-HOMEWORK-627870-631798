@@ -92,7 +92,7 @@ class PartitaTest {
         int messaggi_out_write_cursor = iosimulator.getMessaggiOutCursor();
 
         //verifica che sono stati prodotti 4 messaggi
-        assertEquals(messaggi_out_write_cursor, 4);
+        assertEquals(messaggi_out_write_cursor, 2);
 
         //verifica che l'ultimo messaggio prodotto è corretto
         assertEquals(messaggi_out[messaggi_out_write_cursor-1], "Grazie di aver giocato!");

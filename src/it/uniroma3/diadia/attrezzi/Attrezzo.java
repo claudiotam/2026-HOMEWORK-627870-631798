@@ -59,4 +59,13 @@ public class Attrezzo {
         return this.getNome()+" ("+this.getPeso()+"kg)";
     }
 
+    /*
+    HW3.3
+    vengono creati dei TreeSet con comparatore custom,
+    non serve definire 
+    né compareto (usato treeset con comparatore standard),
+    né equals/hashcode (usato da hashset ma non da treeset).
+    eccetto GetContenutoRaggruppatoPerPeso, che richiederebbe equals/hashcode
+    */
+
 }

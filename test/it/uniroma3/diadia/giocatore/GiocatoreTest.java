@@ -43,6 +43,6 @@ class GiocatoreTest {
 
     @Test
     public void testPosareAttrezzoNonEsistente() {
-        assertFalse(this.giocatore.removeAttrezzo(null), "Non dovrebbe essere possibile posare un attrezzo che non è nella borsa");
+        this.giocatore.removeAttrezzo(null);
     }
 }

@@ -56,8 +56,8 @@ public class Giocatore {
     	return this.borsa.getAttrezzo(nomeAttrezzo);
     }
     
-    public boolean removeAttrezzo(String attrezzo) {
-        return this.borsa.removeAttrezzo(attrezzo) ;
+    public void removeAttrezzo(String attrezzo) {
+        this.borsa.removeAttrezzo(attrezzo) ;
     }
 
     /*

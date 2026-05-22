@@ -2,7 +2,14 @@ package it.uniroma3.diadia.giocatore;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -39,7 +46,7 @@ class BorsaTest {
     }
 
     @Test
-    void testPrendereAttrezzoBorsaPesoMassimo() {
+    void testPrendereAttrezzoBorsaPesoMassimoSingolo() {
         borsa.addAttrezzo(new Attrezzo("automobile", 3500));
         assertTrue(borsa.isEmpty(), "la borsa da 10 chili non dovrebbe accettare una automobile da 3500 chili");
     }
@@ -79,7 +86,7 @@ class BorsaTest {
     }
     
     @Test
-    public void testPrendereAttrezzoBorsaNumeroMassimo() {
+    public void testPrendereAttrezzoBorsaPesiMassimiMultipli() {
         // Proviamo ad aggiungere più di 10 attrezzi (la borsa è limitata a 10 attrezzi)
         for (int i = 0; i < 10; i++) {
             Attrezzo att = new Attrezzo("attrezzo" + i, 1);
@@ -89,5 +96,64 @@ class BorsaTest {
         // Proviamo ad aggiungere un altro attrezzo, ma non dovrebbe essere possibile
         Attrezzo attrezzoInEccesso = new Attrezzo("attrezzoInEccesso", 1);
         assertFalse(borsa.addAttrezzo(attrezzoInEccesso), "Non dovrebbe essere possibile prendere più di 10 attrezzi");
+    }
+
+    @Nested
+    class TestOrdinamenti {
+        Attrezzo atA, atB, atC, atD;
+
+        @BeforeEach
+        void setUp() {
+            // Aggiungiamo 5 attrezzi
+            atA = new Attrezzo("atA", 3);
+            atB = new Attrezzo("atB", 1);
+            atC = new Attrezzo("atC", 1);
+            atD = new Attrezzo("atD", 3);
+            
+            borsa.addAttrezzo(atA);
+            borsa.addAttrezzo(atC);
+            borsa.addAttrezzo(atD);
+            borsa.addAttrezzo(atB);
+        }
+
+        @Test
+        public void testGetContenutoOrdinatoPerPeso() {
+            List<Attrezzo> result = borsa.getContenutoOrdinatoPerPeso();
+            List<Attrezzo> expected = List.of(atB, atC, atA, atD);
+
+            assertEquals(expected, result, "Ordinamento errato");
+        }
+
+        @Test
+        public void testGetContenutoOrdinatoPerNome() {
+            SortedSet<Attrezzo> actual = borsa.getContenutoOrdinatoPerNome();
+            List<Attrezzo> actual_listOf = new ArrayList<>(actual);
+
+            List<Attrezzo> expected = List.of(atA, atB, atC, atD);
+
+            assertEquals(expected, actual_listOf);
+        }
+
+        @Test
+        public void testGetContenutoRaggruppatoPerPeso() {
+            Map<Integer, Set<Attrezzo>> actual = borsa.getContenutoRaggruppatoPerPeso();
+            
+            Map<Integer, Set<Attrezzo>> expected = Map.of(
+                1, Set.of(atB, atC),
+                3, Set.of(atA, atD)
+            );
+
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        public void testGetSortedSetOrdinatoPerPeso() {
+            SortedSet<Attrezzo> actual = borsa.getSortedSetOrdinatoPerPeso();
+            List<Attrezzo> actual_listOf = new ArrayList<>(actual);
+
+            List<Attrezzo> expected = List.of(atB, atC, atA, atD);
+
+            assertEquals(expected, actual_listOf);
+        }
     }
 }
