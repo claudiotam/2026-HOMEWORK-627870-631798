@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.giocatore;
 
 import it.uniroma3.diadia.IO;
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -27,7 +28,7 @@ public class Giocatore {
      * Cerca di andare in una direzione. Se c'e' una stanza ci entra 
      * e ne stampa il nome, altrimenti stampa un messaggio di errore
      */
-    public void vai(String direzione) {
+    public void vai(Direzione direzione) {
         if (direzione == null) {
             this.ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione");
             return;

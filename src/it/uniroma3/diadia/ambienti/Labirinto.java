@@ -38,43 +38,43 @@ public class Labirinto {
         Stanza presi   = new StanzaBloccata("Presidenza");
         
         /* collega le stanze */
-        laborat.impostaStanzaAdiacente("nord", null);
-        laborat.impostaStanzaAdiacente("sud",   labIA  );
-        laborat.impostaStanzaAdiacente("est",   atrio  );
-        laborat.impostaStanzaAdiacente("ovest", aulaN11);
+        laborat.impostaStanzaAdiacente(Direzione.NORD, null);
+        laborat.impostaStanzaAdiacente(Direzione.SUD,   labIA  );
+        laborat.impostaStanzaAdiacente(Direzione.EST,   atrio  );
+        laborat.impostaStanzaAdiacente(Direzione.OVEST, aulaN11);
         
-        atrio  .impostaStanzaAdiacente("nord",  bibliot);
-        atrio  .impostaStanzaAdiacente("sud",   magaz  );
-        atrio  .impostaStanzaAdiacente("est",   aulaN11);
-        atrio  .impostaStanzaAdiacente("ovest", laborat);
+        atrio  .impostaStanzaAdiacente(Direzione.NORD,  bibliot);
+        atrio  .impostaStanzaAdiacente(Direzione.SUD,   magaz  );
+        atrio  .impostaStanzaAdiacente(Direzione.EST,   aulaN11);
+        atrio  .impostaStanzaAdiacente(Direzione.OVEST, laborat);
         
-        aulaN11.impostaStanzaAdiacente("nord", null);
-        aulaN11.impostaStanzaAdiacente("sud",   presi  );
-        aulaN11.impostaStanzaAdiacente("est",   laborat);
-        aulaN11.impostaStanzaAdiacente("ovest", atrio  );
+        aulaN11.impostaStanzaAdiacente(Direzione.NORD, null);
+        aulaN11.impostaStanzaAdiacente(Direzione.SUD,   presi  );
+        aulaN11.impostaStanzaAdiacente(Direzione.EST,   laborat);
+        aulaN11.impostaStanzaAdiacente(Direzione.OVEST, atrio  );
         
         // stanza magica
-        labIA  .impostaStanzaAdiacente("nord",  laborat);
-        labIA  .impostaStanzaAdiacente("sud",   aulaN10);
-        labIA   .impostaStanzaAdiacente("est",  magaz  );
-        labIA  .impostaStanzaAdiacente("ovest", presi  );
+        labIA  .impostaStanzaAdiacente(Direzione.NORD,  laborat);
+        labIA  .impostaStanzaAdiacente(Direzione.SUD,   aulaN10);
+        labIA   .impostaStanzaAdiacente(Direzione.EST,  magaz  );
+        labIA  .impostaStanzaAdiacente(Direzione.OVEST, presi  );
         
         // stanza buia
-        magaz  .impostaStanzaAdiacente("nord",  atrio  );
-        magaz  .impostaStanzaAdiacente("sud",   aulaN10);
-        magaz  .impostaStanzaAdiacente("est",   presi  );
-        magaz  .impostaStanzaAdiacente("ovest", labIA  );
+        magaz  .impostaStanzaAdiacente(Direzione.NORD,  atrio  );
+        magaz  .impostaStanzaAdiacente(Direzione.SUD,   aulaN10);
+        magaz  .impostaStanzaAdiacente(Direzione.EST,   presi  );
+        magaz  .impostaStanzaAdiacente(Direzione.OVEST, labIA  );
         
         // stanza bloccata
-        presi  .impostaStanzaAdiacente("nord",  aulaN11);
-        presi  .impostaStanzaAdiacente("sud",   aulaN10);
-        presi  .impostaStanzaAdiacente("est",   labIA  );
-        presi  .impostaStanzaAdiacente("ovest", magaz  );
+        presi  .impostaStanzaAdiacente(Direzione.NORD,  aulaN11);
+        presi  .impostaStanzaAdiacente(Direzione.SUD,   aulaN10);
+        presi  .impostaStanzaAdiacente(Direzione.EST,   labIA  );
+        presi  .impostaStanzaAdiacente(Direzione.OVEST, magaz  );
         
-        aulaN10.impostaStanzaAdiacente("nord",  magaz  );
-        aulaN10.impostaStanzaAdiacente("sud",   null);
-        aulaN10.impostaStanzaAdiacente("est",   presi  );
-        aulaN10.impostaStanzaAdiacente("ovest", labIA  );
+        aulaN10.impostaStanzaAdiacente(Direzione.NORD,  magaz  );
+        aulaN10.impostaStanzaAdiacente(Direzione.SUD,   null);
+        aulaN10.impostaStanzaAdiacente(Direzione.EST,   presi  );
+        aulaN10.impostaStanzaAdiacente(Direzione.OVEST, labIA  );
         
         /*
          * schema di collegamento
@@ -103,6 +103,14 @@ public class Labirinto {
 
         // il gioco finisce nella biblioteca
         this.stanzaVincente = bibliot;
+    }
+
+    public void setStanzaVincente(Stanza s) {
+        this.stanzaVincente = s;
+    }
+
+    public void setStanzaIniziale(Stanza s) {
+        this.stanzaIniziale = s;
     }
 
     public Stanza getStanzaVincente() {

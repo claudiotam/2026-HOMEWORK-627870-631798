@@ -2,6 +2,8 @@ package it.uniroma3.diadia;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,7 +78,7 @@ class PartitaTest {
     @Test
     public void testPartitaMonocomando() {
         //prepara i messaggi da inviare
-        String[] messaggi_in = new String[] {"fine"};
+        List<String> messaggi_in = List.of("fine");
         
         //crea una console di test
         IOSimulator iosimulator = new IOSimulator(messaggi_in);
@@ -88,23 +90,22 @@ class PartitaTest {
         partita_sim.gioca();
 
         //scarica i messaggi da ricevere
-        String[] messaggi_out = iosimulator.getMessaggiOut();
-        int messaggi_out_write_cursor = iosimulator.getMessaggiOutCursor();
+        List<String> messaggiOut = iosimulator.getMessaggiOut();
 
         //verifica che sono stati prodotti 4 messaggi
-        assertEquals(messaggi_out_write_cursor, 2);
+        assertEquals(messaggiOut.size(), 2);
 
         //verifica che l'ultimo messaggio prodotto è corretto
-        assertEquals(messaggi_out[messaggi_out_write_cursor-1], "Grazie di aver giocato!");
+        assertEquals(messaggiOut.getLast(), "Grazie di aver giocato!");
     }
 
     @Test
     public void testPartitaEsaurimentoCfu() {
         //prepara dei messaggi da inviare
-        String[] messaggi_in = new String[] {};
+        List<String> messaggiIn = List.of();
         
         //crea una console di test
-        IOSimulator iosimulator = new IOSimulator(messaggi_in);
+        IOSimulator iosimulator = new IOSimulator(messaggiIn);
 
         //crea partita
         Partita partita_sim = new Partita(iosimulator);
@@ -116,14 +117,13 @@ class PartitaTest {
         partita_sim.gioca();
 
         //scarica i messaggi
-        String[] messaggi_out = iosimulator.getMessaggiOut();
-        int messaggi_out_write_cursor = iosimulator.getMessaggiOutCursor();
+        List<String> messaggiOut = iosimulator.getMessaggiOut();
 
         //verifica che sono stati prodotti 39 messaggi
-        assertEquals(messaggi_out_write_cursor, 39);
+        assertEquals(messaggiOut.size(), 39);
 
         //verifica che il penultimo messaggio prodotto è corretto
-        assertTrue(messaggi_out[messaggi_out_write_cursor-2].contains("perso"), "l'ultimo messaggio dovrebbe contenere la parola 'perso'");
+        assertTrue(messaggiOut.getLast().contains("giocato"), "l'ultimo messaggio dovrebbe contenere la parola 'giocato'");
 
     }
 }

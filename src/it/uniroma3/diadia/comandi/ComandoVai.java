@@ -2,10 +2,11 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class ComandoVai implements Comando {
-    private String direzione;
+    private String nomeDirezione;
     private IO ioconsole;
 
     /**
@@ -20,7 +21,22 @@ public class ComandoVai implements Comando {
             this.ioconsole.mostraMessaggio("Non trovo il giocatore");
             return;
         }
-        giocatore.vai(this.direzione);
+
+        Direzione direzione = getDirezione();
+        if (direzione == null) {
+            this.ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione");
+            return;
+        }
+        
+        giocatore.vai(direzione);
+    }
+
+    Direzione getDirezione() {
+        for (Direzione d : Direzione.values()) {
+            if (d.name().equalsIgnoreCase(nomeDirezione))
+                return d;
+        }
+        return null;
     }
 
     /*
@@ -28,7 +44,7 @@ public class ComandoVai implements Comando {
      */
     @Override
     public void setParametro(String parametro) {
-        this.direzione = parametro;
+        this.nomeDirezione = parametro;
     }
 
     /* 
