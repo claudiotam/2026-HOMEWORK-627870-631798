@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.Personaggio;
 
 public class Stanza {
 
@@ -23,6 +24,8 @@ public class Stanza {
     private Map<String, Attrezzo> attrezzi;
 
     private HashMap<Direzione, Stanza> stanzeAdiacenti;
+
+    private Personaggio personaggio;
 
     public void assertNomeStanzaNotNull(String nomeStanza) {
         if(nomeStanza == null) {
@@ -128,6 +131,18 @@ public class Stanza {
      */
     public void removeAttrezzo(String nomeAttrezzo) {
         attrezzi.remove(nomeAttrezzo);
+    }
+
+    public boolean hasPersonaggio() {
+        return this.personaggio != null;
+    }
+    
+    public Personaggio getPersonaggio() {
+        return this.personaggio;
+    }
+
+    public void setPersonaggio(Personaggio personaggio) {
+        this.personaggio = personaggio;
     }
 
     public boolean isEmpty() {

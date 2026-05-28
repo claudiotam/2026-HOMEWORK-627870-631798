@@ -68,4 +68,12 @@ public class Attrezzo {
     eccetto GetContenutoRaggruppatoPerPeso, che richiederebbe equals/hashcode
     */
 
+    /*
+    HW3.3
+    serve dimezzare il peso di un attrezzo
+    */
+    public void dimezzaPeso() {
+        this.peso = (this.peso + 1) / 2;
+    }
+
 }

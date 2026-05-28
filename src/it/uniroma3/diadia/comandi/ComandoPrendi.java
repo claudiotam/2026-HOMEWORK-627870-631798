@@ -2,7 +2,6 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class ComandoPrendi implements Comando {
     private String    nome_attrezzo;
@@ -13,16 +12,11 @@ public class ComandoPrendi implements Comando {
      */
     @Override
     public void esegui(Partita partita) {
-    if (nome_attrezzo == null) {
-        this.ioconsole.mostraMessaggio("Quale attrezzo vuoi prendere? Specifica un nome di attrezzo");
-        return;
-    }
-    Giocatore giocatore = partita.getGiocatore();
-    if (giocatore == null) {
-        this.ioconsole.mostraMessaggio("Non trovo il giocatore");
-        return;
-    }
-    giocatore.prendi(nome_attrezzo);
+        if (nome_attrezzo == null) {
+            this.ioconsole.mostraMessaggio("Quale attrezzo vuoi prendere? Specifica un nome di attrezzo");
+            return;
+        }
+        partita.getGiocatore().prendi(nome_attrezzo);
     }
 
     /*

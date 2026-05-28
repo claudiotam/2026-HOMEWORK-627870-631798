@@ -23,7 +23,9 @@ class PartitaTest {
     void setUp() {
         // Setup del test, viene eseguito prima di ogni test.
         IOConsole ioconsole = new IOConsole();
-        this.partita     = new Partita(ioconsole);
+        Labirinto labirinto = new Labirinto();
+        labirinto.creaLabirintoBase();
+        this.partita     = new Partita(ioconsole, labirinto);
         this.giocatore   = this.partita.getGiocatore();
         this.labirinto   = this.partita.getLabirinto();
     }
@@ -83,8 +85,12 @@ class PartitaTest {
         //crea una console di test
         IOSimulator iosimulator = new IOSimulator(messaggi_in);
 
+        //crea il labirinto base
+        Labirinto labirinto = new Labirinto();
+        labirinto.creaLabirintoBase();
+
         //crea partita
-        Partita partita_sim = new Partita(iosimulator);
+        Partita partita_sim = new Partita(iosimulator, labirinto);
 
         //lancia
         partita_sim.gioca();
@@ -107,8 +113,12 @@ class PartitaTest {
         //crea una console di test
         IOSimulator iosimulator = new IOSimulator(messaggiIn);
 
+        //crea un labirinto
+        Labirinto labirinto = new Labirinto();
+        labirinto.creaLabirintoBase();
+
         //crea partita
-        Partita partita_sim = new Partita(iosimulator);
+        Partita partita_sim = new Partita(iosimulator, labirinto);
 
         //modifica i cfu giocatore
         partita_sim.getGiocatore().setCfu(36);

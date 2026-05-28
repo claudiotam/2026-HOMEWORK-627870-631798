@@ -31,10 +31,9 @@ public class Partita {
     private Labirinto labirinto;
     private IO ioconsole;
     
-    public Partita(IO ioconsole) {
+    public Partita(IO ioconsole, Labirinto labirinto) {
         this.ioconsole = ioconsole;
-        this.labirinto = new Labirinto();
-        labirinto.creaLabirintoBase();
+        this.labirinto = labirinto;
         this.giocatore = new Giocatore(ioconsole);
         giocatore.setStanzaCorrente(labirinto.getStanzaIniziale());
         this.finita = false;

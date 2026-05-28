@@ -2,9 +2,9 @@ package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Stanza;
 
-public class ComandoPosa implements Comando {
-    private String nome_attrezzo;
+public class ComandoSaluta implements Comando {
     private IO ioconsole;
 
     /**
@@ -12,20 +12,19 @@ public class ComandoPosa implements Comando {
      */
     @Override
     public void esegui(Partita partita) {
-        if (nome_attrezzo == null) {
-            this.ioconsole.mostraMessaggio("Quale attrezzo vuoi posare? Specifica un nome di attrezzo");
+        Stanza stanzaCorrente = partita.getGiocatore().getStanzaCorrente();
+        if (!stanzaCorrente.hasPersonaggio()) {
+            ioconsole.mostraMessaggio("nessun personaggio da salutare qui");
             return;
         }
-        partita.getGiocatore().posa(nome_attrezzo);
+        stanzaCorrente.getPersonaggio().saluta();
     }
 
     /*
-     * impostazione del parametro (cioè il nome_attrezzo)
+     * impostazione del parametro
      */
     @Override
-    public void setParametro(String nome_attrezzo) {
-        this.nome_attrezzo = nome_attrezzo;
-    }
+    public void setParametro(String parametro) {}
 
     /*
      * impostazione della console

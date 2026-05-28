@@ -3,7 +3,7 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
-public class ComandoPosa implements Comando {
+public class ComandoRegala implements Comando {
     private String nome_attrezzo;
     private IO ioconsole;
 
@@ -13,10 +13,10 @@ public class ComandoPosa implements Comando {
     @Override
     public void esegui(Partita partita) {
         if (nome_attrezzo == null) {
-            this.ioconsole.mostraMessaggio("Quale attrezzo vuoi posare? Specifica un nome di attrezzo");
+            this.ioconsole.mostraMessaggio("Quale attrezzo vuoi regalare? Specifica un nome di attrezzo");
             return;
         }
-        partita.getGiocatore().posa(nome_attrezzo);
+        partita.getGiocatore().regala(partita, nome_attrezzo);
     }
 
     /*

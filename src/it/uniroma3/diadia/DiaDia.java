@@ -12,11 +12,18 @@
 
 package it.uniroma3.diadia;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.personaggi.Cane;
+
 public class DiaDia {
 
     public static void main(String[] argc) {
         IO ioconsole = new IOConsole();
-        Partita partita = new Partita(ioconsole);
+        Labirinto labirinto = new Labirinto();
+        labirinto.creaLabirintoBase();
+        labirinto.getStanzaIniziale().setPersonaggio(new Cane(ioconsole));
+
+        Partita partita = new Partita(ioconsole, labirinto);
         partita.gioca();
     }
 }

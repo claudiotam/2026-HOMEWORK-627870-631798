@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPosaTest {
@@ -17,11 +18,14 @@ public class ComandoPosaTest {
     @BeforeEach
     public void setup() {
         //crea una console (il comando posa ha bisogno di una console per mostrare gli errori)
-        this.ioconsole   = new IOConsole();
+        this.ioconsole = new IOConsole();
 
-        //crea partita con inclusi labirinto, giocatore, borsa (il comando posa lavora su una partita)
-        this.partita   = new Partita(ioconsole);
+        //crea un labirinto
+        Labirinto labirinto = new Labirinto();
+        labirinto.creaLabirintoBase();
 
+        //crea partita con inclusi giocatore, borsa (il comando posa lavora su una partita)
+        this.partita = new Partita(ioconsole, labirinto);
     }
 
     @Test

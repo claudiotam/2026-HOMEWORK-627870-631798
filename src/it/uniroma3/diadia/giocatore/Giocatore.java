@@ -1,9 +1,11 @@
 package it.uniroma3.diadia.giocatore;
 
 import it.uniroma3.diadia.IO;
+import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.Personaggio;
 
 public class Giocatore {
 
@@ -125,7 +127,7 @@ public class Giocatore {
     public void posa(String nomeAttrezzo) {
         boolean trovato = this.borsa.hasAttrezzo(nomeAttrezzo);
         if (!trovato) {
-            ioconsole.mostraMessaggio("attrezzo non trovato nella borsa");
+            ioconsole.mostraMessaggio("attrezzo da posare non trovato nella borsa");
             return;
         }
 
@@ -139,6 +141,26 @@ public class Giocatore {
         this.borsa.removeAttrezzo(nomeAttrezzo);
         this.stanzaCorrente.addAttrezzo(attrezzo);
         ioconsole.mostraMessaggio("attrezzo posato");
+    }
+
+    public void regala(Partita partita, String nomeAttrezzo) {
+        boolean trovato = this.borsa.hasAttrezzo(nomeAttrezzo);
+        if (!trovato) {
+            ioconsole.mostraMessaggio("attrezzo da regalare non trovato nella borsa");
+            return;
+        }
+
+        Attrezzo attrezzo = this.borsa.getAttrezzo(nomeAttrezzo);
+
+        if (!this.stanzaCorrente.hasPersonaggio()) {
+            ioconsole.mostraMessaggio("in questa stanza non c'è alcun personaggio a cui regalare");
+            return;
+        }
+
+        Personaggio personaggio = this.stanzaCorrente.getPersonaggio();
+        this.borsa.removeAttrezzo(nomeAttrezzo);
+        ioconsole.mostraMessaggio("attrezzo regalato");
+        personaggio.riceviRegalo(partita, attrezzo);
     }
 
 }
