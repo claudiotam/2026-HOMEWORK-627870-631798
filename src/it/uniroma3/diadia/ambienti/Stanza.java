@@ -11,7 +11,10 @@
 
 package it.uniroma3.diadia.ambienti;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -21,7 +24,7 @@ public class Stanza {
 
     private String nome;
 
-    private Map<String, Attrezzo> attrezzi;
+    private HashSet<Attrezzo> attrezzi;
 
     private HashMap<Direzione, Stanza> stanzeAdiacenti;
 
@@ -48,7 +51,7 @@ public class Stanza {
         assertNomeStanzaNotNull(nomeStanza);
         this.nome = nomeStanza;
         this.stanzeAdiacenti = new HashMap<>();
-        this.attrezzi = new HashMap<>();
+        this.attrezzi = new HashSet<>();
     }
 
     /**
@@ -68,6 +71,35 @@ public class Stanza {
      */
     public Stanza getStanzaAdiacente(Direzione direzione) {
         return stanzeAdiacenti.getOrDefault(direzione, null);
+    }
+
+    /*
+    * overload necessario per far funzionare LabirintoBuilderTestCrescenzi
+    */
+    public Stanza getStanzaAdiacente(String nomeDirezione) {
+        return getStanzaAdiacente(Direzione.valueOf(nomeDirezione.toUpperCase()));
+    }
+
+    /*
+    * funzione non di produzione, necessaria per far funzionare LabirintoBuilderTestCrescenzi
+    */
+    public ArrayList<String> getDirezioni() {
+        ArrayList<String> nomiDirezioniValide = new ArrayList<String>();
+        for (Direzione d : stanzeAdiacenti.keySet()) {
+            nomiDirezioniValide.add(d.toString().toLowerCase());
+        }
+        return nomiDirezioniValide;
+    }
+
+    /*
+    * funzione non di produzione, necessaria per far funzionare LabirintoBuilderTestCrescenzi
+    */
+    public Map<String, Stanza> getMapStanzeAdiacenti() {
+        HashMap<String, Stanza> mapNomeDirezioneStanzaAdiacente = new HashMap<String, Stanza>();
+        for (Map.Entry<Direzione,Stanza> entry : stanzeAdiacenti.entrySet()) {
+            mapNomeDirezioneStanzaAdiacente.put(entry.getKey().toString().toLowerCase(), entry.getValue());
+        }
+        return mapNomeDirezioneStanzaAdiacente;
     }
 
     /**
@@ -102,7 +134,7 @@ public class Stanza {
      */
     public boolean addAttrezzo(Attrezzo attrezzo) {
     	if (!acceptsAttrezzo(attrezzo)) return false;
-        attrezzi.put(attrezzo.getNome(), attrezzo);
+        attrezzi.add(attrezzo);
         return true;
     }
 
@@ -111,7 +143,7 @@ public class Stanza {
      * @return true se l'attrezzo esiste nella stanza, false altrimenti.
      */
     public boolean hasAttrezzo(String nomeAttrezzo) {
-        return attrezzi.containsKey(nomeAttrezzo);
+        return attrezzi.contains(new Attrezzo(nomeAttrezzo,1));
     }
 
     /**
@@ -121,7 +153,12 @@ public class Stanza {
      *            null se l'attrezzo non e' presente.
      */
     public Attrezzo getAttrezzo(String nomeAttrezzo) {
-        return attrezzi.getOrDefault(nomeAttrezzo, null);
+        for (Attrezzo at : attrezzi) {
+            if (at.equals(new Attrezzo(nomeAttrezzo,1))) {
+                return at;
+            }
+        }
+        return null;
     }
 
     /**
@@ -130,7 +167,7 @@ public class Stanza {
      * @return true se l'attrezzo e' stato rimosso, false altrimenti
      */
     public void removeAttrezzo(String nomeAttrezzo) {
-        attrezzi.remove(nomeAttrezzo);
+        attrezzi.remove(new Attrezzo(nomeAttrezzo, 1));
     }
 
     public boolean hasPersonaggio() {
@@ -147,6 +184,13 @@ public class Stanza {
 
     public boolean isEmpty() {
         return attrezzi.isEmpty();
+    }
+
+    /*
+    metodo getattrezzi, utile SOLO alla classe LabirintoBuilderTestCrescenzi
+    */
+    public List<Attrezzo> getAttrezzi() {
+        return new ArrayList<Attrezzo>(attrezzi);
     }
 
     /**
@@ -169,7 +213,7 @@ public class Stanza {
 
         if (!this.isEmpty()) {
             s.append("Attrezzi nella stanza: ");
-            for (Attrezzo at : attrezzi.values())
+            for (Attrezzo at : attrezzi)
                 s.append(at.toString() + " ");
         } else
             s.append("Nessun attrezzo nella stanza");
@@ -178,4 +222,12 @@ public class Stanza {
         return s.toString();
     }
 
+    /*
+    * metodo equals non necessario, aggiunto per evitare guasti e per far funzionare LabirintoBuilderTestCrescenzi
+    */
+    public boolean equals(Object o) {
+        if (!(o instanceof Stanza)) return false;
+        Stanza st = (Stanza) o;
+        return this.nome.equals(st.getNome());
+    }
 }

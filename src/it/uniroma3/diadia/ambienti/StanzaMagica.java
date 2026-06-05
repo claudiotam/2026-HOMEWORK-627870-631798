@@ -47,4 +47,11 @@ public class StanzaMagica extends Stanza {
     private void modificaAttrezzo(Attrezzo attrezzo) {
         attrezzo.invertiNomeAumentaPeso();
     }
+
+    /*
+    funzione brutta copia di instanceof, richiesta per compatibilità con LabirintoBuilderTestCrescenzi
+    */
+    public boolean isMagica() {
+        return true;
+    }
 }

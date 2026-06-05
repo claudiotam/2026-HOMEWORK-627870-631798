@@ -10,7 +10,8 @@ package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.FabbricaDiComandi;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Partita {
@@ -43,13 +44,13 @@ public class Partita {
         /*
          *  loop principale while (leggi istruzione) do processa istruzione
          */
-        String istruzione;
+        String rigaIstruzione;
 
         ioconsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
         
         do {
-            istruzione = ioconsole.leggiRiga();
-        } while (!processaIstruzione(istruzione));
+            rigaIstruzione = ioconsole.leggiRiga();
+        } while (!processaIstruzione(rigaIstruzione));
     }   
 
     /**
@@ -57,25 +58,25 @@ public class Partita {
      *
      * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
      */
-    private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire;
-        FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(this.ioconsole);
-		comandoDaEseguire = factory.costruisciComando(istruzione);
-		comandoDaEseguire.esegui(this);
-		
-		giocatore.togliUnCfu();
-		
-		if (this.isFinita()) { 
-			if (this.vinta()) {
-				this.ioconsole.mostraMessaggio("Hai vinto!");
-			}
-			if (giocatore.hasZeroCfu()) {
-				this.ioconsole.mostraMessaggio("Hai perso! Non hai manco un CFU!");
-			}
-			this.fine();
-			return true;
-		}
-		return false;
+    private boolean processaIstruzione(String rigaIstruzione) {
+        //FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica(this.ioconsole);
+        FabbricaDiComandi factory = new FabbricaDiComandiRiflessiva(this.ioconsole);
+        Comando comandoDaEseguire = factory.costruisciComando(rigaIstruzione);
+        comandoDaEseguire.esegui(this);
+        
+        giocatore.togliUnCfu();
+        
+        if (this.isFinita()) { 
+            if (this.vinta()) {
+                this.ioconsole.mostraMessaggio("Hai vinto!");
+            }
+            if (giocatore.hasZeroCfu()) {
+                this.ioconsole.mostraMessaggio("Hai perso! Non hai manco un CFU!");
+            }
+            this.fine();
+            return true;
+        }
+        return false;
     }
 
     // implementazioni dei comandi dell'utente:
@@ -117,6 +118,11 @@ public class Partita {
 
     public Labirinto getLabirinto() {
         return this.labirinto;
+    }
+
+    public void setLabirinto(Labirinto labirinto) {
+        this.labirinto = labirinto;
+        giocatore.setStanzaCorrente(labirinto.getStanzaIniziale());
     }
 
 }

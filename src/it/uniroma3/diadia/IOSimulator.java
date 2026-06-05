@@ -4,11 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class IOSimulator implements IO {
-    // in ordine temporale, array di messaggi in viaggio dall'utente al gioco
+    // in ordine temporale, collezione di messaggi in viaggio dall'utente al gioco
     private List<String> messaggiIn;
     private int messaggiInReadCursor;
 
-    // in ordine temporale, array di messaggi in viaggio dal gioco all'utente
+    // in ordine temporale, collezione di messaggi in viaggio dal gioco all'utente
     private List<String> messaggiOut;
 
     public IOSimulator(List<String> messaggi_in) {

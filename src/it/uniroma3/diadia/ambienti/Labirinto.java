@@ -56,7 +56,7 @@ public class Labirinto {
         // stanza magica
         labIA  .impostaStanzaAdiacente(Direzione.NORD,  laborat);
         labIA  .impostaStanzaAdiacente(Direzione.SUD,   aulaN10);
-        labIA   .impostaStanzaAdiacente(Direzione.EST,  magaz  );
+        labIA  .impostaStanzaAdiacente(Direzione.EST,   magaz  );
         labIA  .impostaStanzaAdiacente(Direzione.OVEST, presi  );
         
         // stanza buia

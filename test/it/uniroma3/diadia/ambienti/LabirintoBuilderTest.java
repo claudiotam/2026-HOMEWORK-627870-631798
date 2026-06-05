@@ -38,7 +38,7 @@ public class LabirintoBuilderTest {
 
     @Test
     public void addAdiacenzaTest() {
-        labirintoBuilder.addAdiacenza("partenza", Direzione.EST, "arrivo");
+        labirintoBuilder.addAdiacenza("partenza", "arrivo", Direzione.EST);
         labirintoBuilder.addStanzaVincente("partenza");
         String actual = labirintoBuilder.getLabirinto().getStanzaVincente().getStanzaAdiacente(Direzione.EST).getNome();
         assertEquals(actual, "arrivo", "Stanza di arrivo spostamento mal impostata");

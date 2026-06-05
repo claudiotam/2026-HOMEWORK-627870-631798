@@ -12,11 +12,13 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
     }
     
     @Override
-    public Comando costruisciComando(String istruzione) {
-        Scanner scannerDiParole = new Scanner(istruzione);
+    public Comando costruisciComando(String rigaIstruzione) {
+        
+        Scanner scannerDiParole = new Scanner(rigaIstruzione);
         String nomeComando = null;
         String parametro = null;
         Comando comando = null;
+        
         if (scannerDiParole.hasNext())
             nomeComando = scannerDiParole.next(); // prima parola: nome del comando
         if (scannerDiParole.hasNext())

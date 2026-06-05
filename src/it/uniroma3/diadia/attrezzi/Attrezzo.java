@@ -66,7 +66,20 @@ public class Attrezzo {
     né compareto (usato treeset con comparatore standard),
     né equals/hashcode (usato da hashset ma non da treeset).
     eccetto GetContenutoRaggruppatoPerPeso, che richiederebbe equals/hashcode
+    eccetto LabirintoBuilderTestCrescenzi, che richiede contains su liste
     */
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Attrezzo)) return false;
+        Attrezzo at = (Attrezzo) o;
+        return nome.equals(at.getNome());
+    }
+
+    @Override
+    public int hashCode() {
+        if (nome == null) return 0;
+        return nome.hashCode();
+    }
 
     /*
     HW3.3

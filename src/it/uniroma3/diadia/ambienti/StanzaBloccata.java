@@ -7,24 +7,31 @@ package it.uniroma3.diadia.ambienti;
  * particolare (ad esempio "passepartout" o "piedediporco")
  */
 public class StanzaBloccata extends Stanza {
-    final static private String    NOME_ATTREZZO_ANTI_BLOCCO_DEFAULT = "passepartout";
+    final static private String    nomeAttrezzoAntiBlocco_DEFAULT = "passepartout";
     final static private Direzione DIREZIONE_BLOCCATA_DEFAULT        = Direzione.EST;
-    private String nome_attrezzo_anti_blocco;
+    private String nomeAttrezzoAntiBlocco;
     private Direzione direzione_bloccata;
 
     public StanzaBloccata(String nome) {
-        this(nome, NOME_ATTREZZO_ANTI_BLOCCO_DEFAULT, DIREZIONE_BLOCCATA_DEFAULT);
+        this(nome, nomeAttrezzoAntiBlocco_DEFAULT, DIREZIONE_BLOCCATA_DEFAULT);
     }
 
-    public StanzaBloccata(String nome, String nome_attrezzo_anti_blocco, Direzione direzione_bloccata) {
+    public StanzaBloccata(String nome, String nomeAttrezzoAntiBlocco, Direzione direzione_bloccata) {
         super(nome);
-        this.nome_attrezzo_anti_blocco = nome_attrezzo_anti_blocco;
+        this.nomeAttrezzoAntiBlocco = nomeAttrezzoAntiBlocco;
         this.direzione_bloccata = direzione_bloccata;
+    }
+
+    /*
+    * overload retrocompatibilità per far funzionare LabirintoBuilderTestCrescenzi
+    */
+    public StanzaBloccata(String nome, String nomeDirezioneBloccata, String nomeAttrezzoAntiBlocco) {
+        this(nome, nomeAttrezzoAntiBlocco, Direzione.valueOf(nomeDirezioneBloccata.toUpperCase()));
     }
 
     @Override
     public Stanza getStanzaAdiacente(Direzione direzione) {
-        if (!direzione.equals(this.direzione_bloccata) || this.hasAttrezzo(nome_attrezzo_anti_blocco)) {
+        if (!direzione.equals(this.direzione_bloccata) || this.hasAttrezzo(nomeAttrezzoAntiBlocco)) {
             return super.getStanzaAdiacente(direzione);
         }
         else {
