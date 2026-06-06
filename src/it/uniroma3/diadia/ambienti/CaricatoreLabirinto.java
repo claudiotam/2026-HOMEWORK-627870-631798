@@ -37,7 +37,7 @@ public class CaricatoreLabirinto {
     private Map<String, Stanza> nome2stanza;
 
     private Stanza stanzaIniziale;
-    private Stanza stanzaVincente;
+    private Stanza ultimaStanzaVincenteAggiunta;
 
 
     public CaricatoreLabirinto(String nomeFile) throws FileNotFoundException {
@@ -80,16 +80,15 @@ public class CaricatoreLabirinto {
         }
     }
 
-    private List<String> separaStringheAlleVirgole(String string) {
+    private List<String> separaStringheAlleVirgole(String str) {
         List<String> result = new LinkedList<>();
-        Scanner scanner = new Scanner(string);
+        Scanner scanner = new Scanner(str);
         scanner.useDelimiter(",");
         try (Scanner scannerDiParole = scanner) {
             result.add(scannerDiParole.next());
         }
         return result;
     }
-
 
     private void leggiInizialeEvincente() throws FormatoFileNonValidoException {
         String nomeStanzaIniziale = null;
@@ -98,7 +97,14 @@ public class CaricatoreLabirinto {
         String nomeStanzaVincente = this.leggiRigaCheCominciaPer(STANZA_VINCENTE_MARKER);
         check(this.isStanzaValida(nomeStanzaVincente), nomeStanzaVincente + " non definita");
         this.stanzaIniziale = this.nome2stanza.get(nomeStanzaIniziale);
-        this.stanzaVincente = this.nome2stanza.get(nomeStanzaVincente);
+        impostaVincente(nomeStanzaVincente);
+    }
+
+    private void impostaVincente(String nomeStanzaVincente) throws FormatoFileNonValidoException {
+        check(isStanzaValida(nomeStanzaVincente),"Stanza vincente sconosciuta ");
+        Stanza stanzaVincente = this.nome2stanza.get(nomeStanzaVincente);
+        ultimaStanzaVincenteAggiunta = stanzaVincente;
+        stanzaVincente.isVincente = true;
     }
 
     private void leggiECollocaAttrezzi() throws FormatoFileNonValidoException {
@@ -159,17 +165,16 @@ public class CaricatoreLabirinto {
         return "Terminazione precoce del file prima di leggere "+msg;
     }
 
-    private void impostaUscita(String stanzaDa, String dir, String nomeA) throws FormatoFileNonValidoException {
-        check(isStanzaValida(stanzaDa),"Stanza di partenza sconosciuta "+dir);
-        check(isStanzaValida(nomeA),"Stanza di destinazione sconosciuta "+ dir);
-        Stanza partenzaDa = this.nome2stanza.get(stanzaDa);
-        Stanza arrivoA = this.nome2stanza.get(nomeA);
-        partenzaDa.impostaStanzaAdiacente(dir, arrivoA);
+    private void impostaUscita(String nomeStanzaDa, String nomeDir, String nomeStanzaA) throws FormatoFileNonValidoException {
+        check(isStanzaValida(nomeStanzaDa),"Stanza di partenza sconosciuta "+nomeDir);
+        check(isStanzaValida(nomeStanzaA),"Stanza di destinazione sconosciuta "+ nomeDir);
+        Stanza partenzaDa = this.nome2stanza.get(nomeStanzaDa);
+        Stanza arrivoA = this.nome2stanza.get(nomeStanzaA);
+        partenzaDa.impostaStanzaAdiacente(nomeDir, arrivoA);
     }
 
-
-    final private void check(boolean condizioneCheDeveEsseraVera, String messaggioErrore) throws FormatoFileNonValidoException {
-        if (!condizioneCheDeveEsseraVera)
+    final private void check(boolean condizioneCheDeveEssereVera, String messaggioErrore) throws FormatoFileNonValidoException {
+        if (!condizioneCheDeveEssereVera)
             throw new FormatoFileNonValidoException("Formato file non valido [" + this.reader.getLineNumber() + "] "+messaggioErrore);
     }
 
@@ -177,7 +182,7 @@ public class CaricatoreLabirinto {
         return this.stanzaIniziale;
     }
 
-    public Stanza getStanzaVincente() {
-        return this.stanzaVincente;
+    public Stanza getUltimaStanzaVincenteAggiunta() {
+        return this.ultimaStanzaVincenteAggiunta;
     }
 }

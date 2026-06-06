@@ -23,10 +23,10 @@ public class StregaTest {
         
         strega = new Strega(ioconsole);
 
-        Labirinto labirinto = new Labirinto();
-        Stanza stanzaunica = new Stanza("stanzaunica");
-        stanzaunica.setPersonaggio(strega);
-        labirinto.setStanzaIniziale(stanzaunica);
+        Labirinto.LabirintoBuilder builder = new Labirinto.LabirintoBuilder();
+        builder.addStanzaIniziale("stanzaunica");
+        Labirinto labirinto = builder.getLabirinto();
+        labirinto.getStanzaIniziale().setPersonaggio(strega);
         
         Giocatore giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());
 

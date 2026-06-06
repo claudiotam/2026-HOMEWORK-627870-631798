@@ -14,13 +14,13 @@ import org.junit.Test;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class LabirintoBuilderTestCrescenzi {
-    private LabirintoBuilder labirintoBuilder;
+    private Labirinto.LabirintoBuilder labirintoBuilder;
     private String nomeStanzaIniziale = "Atrio";
     private String nomeStanzaVincente = "Uscita";
 
     @Before
     public void setUp() throws Exception {
-        labirintoBuilder = new LabirintoBuilder();
+        labirintoBuilder = new Labirinto.LabirintoBuilder();
     }
 
     @Test

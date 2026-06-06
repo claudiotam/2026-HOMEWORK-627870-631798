@@ -14,12 +14,6 @@ public class StanzaMagica extends Stanza {
     //teniamo traccia solo delle posature residue prima di attivare la magia
     private int posatureResidue;
 
-    //per attivare o eseguire la magia non serve conoscere i nomi degli attrezzi
-    //protected Attrezzo[] attrezzi;
-
-    //per attivare o eseguire la magia non serve conoscere la quantità di attrezzi
-    //protected numeroAttrezzi;      
-
     public StanzaMagica(String nome) {
         this(nome, POSATURE_RESIDUE_DEFAULT);
     }

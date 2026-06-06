@@ -25,11 +25,11 @@ public class CaneTest {
         
         cane = new Cane(ioconsole);
 
-        Labirinto labirinto = new Labirinto();
-        Stanza stanzaunica = new Stanza("stanzaunica");
-        stanzaunica.setPersonaggio(cane);
-        labirinto.setStanzaIniziale(stanzaunica);
-        
+        Labirinto.LabirintoBuilder builder = new Labirinto.LabirintoBuilder();
+        builder.addStanzaIniziale("stanzaunica");
+        Labirinto labirinto = builder.getLabirinto();
+        labirinto.getStanzaIniziale().setPersonaggio(cane);
+
         Giocatore giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());
 
         this.partita = new Partita(ioconsole, giocatore);

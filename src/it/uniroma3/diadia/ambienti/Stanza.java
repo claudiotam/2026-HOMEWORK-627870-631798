@@ -63,15 +63,18 @@ public class Stanza {
      * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
      */
     public void impostaStanzaAdiacente(Direzione direzione, Stanza stanza) {
+        if (direzione == null) {
+            throw new IllegalArgumentException("direzione stanza adiacente non indicata");
+        }
         if (stanza == null) stanzeAdiacenti.remove(direzione);
-        stanzeAdiacenti.put(direzione, stanza);
+        else                stanzeAdiacenti.put(   direzione, stanza);
     }
 
     /*
     * overload necessario per far funzionare CaricatoreLabirintoCrescenzi
     */
     public void impostaStanzaAdiacente(String nomeDirezione, Stanza stanza) {
-        impostaStanzaAdiacente(Direzione.valueOf(nomeDirezione.toUpperCase()), stanza);
+        impostaStanzaAdiacente(Direzione.fromString(nomeDirezione), stanza);
     }
 
     /**
@@ -86,7 +89,7 @@ public class Stanza {
     * overload necessario per far funzionare LabirintoBuilderTestCrescenzi
     */
     public Stanza getStanzaAdiacente(String nomeDirezione) {
-        return getStanzaAdiacente(Direzione.valueOf(nomeDirezione.toUpperCase()));
+        return getStanzaAdiacente(Direzione.fromString(nomeDirezione));
     }
 
     /*
@@ -227,7 +230,8 @@ public class Stanza {
     }
 
     /*
-    * metodo equals non necessario, aggiunto per evitare guasti e per far funzionare LabirintoBuilderTestCrescenzi
+    * metodo equals non necessario, aggiunto per evitare guasti e 
+    * per far funzionare LabirintoBuilder e LabirintoBuilderTestCrescenzi
     */
     public boolean equals(Object o) {
         if (!(o instanceof Stanza)) return false;

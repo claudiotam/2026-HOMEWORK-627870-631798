@@ -26,7 +26,7 @@ public class StanzaBloccata extends Stanza {
     * overload retrocompatibilità per far funzionare LabirintoBuilderTestCrescenzi
     */
     public StanzaBloccata(String nome, String nomeDirezioneBloccata, String nomeAttrezzoAntiBlocco) {
-        this(nome, nomeAttrezzoAntiBlocco, Direzione.valueOf(nomeDirezioneBloccata.toUpperCase()));
+        this(nome, nomeAttrezzoAntiBlocco, Direzione.fromString(nomeDirezioneBloccata));
     }
 
     @Override

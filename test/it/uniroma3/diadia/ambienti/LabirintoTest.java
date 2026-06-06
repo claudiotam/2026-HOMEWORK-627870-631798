@@ -3,7 +3,10 @@ package it.uniroma3.diadia.ambienti;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 
 /**
  * test della classe Labirinto
@@ -17,14 +20,14 @@ public class LabirintoTest {
     public void setUp() {
         // Setup per ogni test, viene eseguito prima di ciascun test
     	// Crea un nuovo labirinto
-        this.labirinto = new Labirinto();
-        labirinto.creaLabirintoBase();
+        Labirinto.LabirintoBuilder builder = new Labirinto.LabirintoBuilder();
+        this.labirinto = builder.creaLabirintoBase().getLabirinto();
         this.stanzaIniziale = this.labirinto.getStanzaIniziale();
     }
 
     @Test
     void VincenteNordIniziale() {
-        assertTrue(this.labirinto.getStanzaIniziale().getStanzaAdiacente(Direzione.NORD).isVincente);
+        assertTrue(this.stanzaIniziale.getStanzaAdiacente(Direzione.NORD).isVincente);
     }
     
     @Test
@@ -37,7 +40,7 @@ public class LabirintoTest {
     @Test
     public void BibliotecaNordIniziale() {
         // Verifica che la stanza vincente sia corretta
-        Stanza stanzaNord = labirinto.getStanzaIniziale().getStanzaAdiacente(Direzione.NORD);
+        Stanza stanzaNord = this.stanzaIniziale.getStanzaAdiacente(Direzione.NORD);
         assertNotNull(stanzaNord, "La stanza vincente non dovrebbe essere null");
         assertEquals("Biblioteca", stanzaNord.getNome(), "La stanza nord dovrebbe essere 'Biblioteca'");
     }
@@ -69,4 +72,50 @@ public class LabirintoTest {
         assertNotNull(n10_ovest, "Aula N10 dovrebbe avere un collegamento verso ovest");
         assertEquals("LabIA", n10_ovest.getNome(), "Aula N10 dovrebbe avere un collegamento verso ovest a LabIA");
     }
+
+    @Nested
+    public class LabirintoBuilderTest {
+        LabirintoBuilder labirintoBuilder;
+        @BeforeEach
+        public void setUp() {
+            labirintoBuilder = new LabirintoBuilder();
+        }
+
+        @Test
+        public void addStanzaTest() {
+            labirintoBuilder.addStanza("prova");
+        }
+
+        @Test
+        public void addStanzaInizialeTest() {
+            labirintoBuilder.addStanzaIniziale("iniziale");
+            String actual = labirintoBuilder.getLabirinto().getStanzaIniziale().getNome();
+            assertEquals(actual, "iniziale", "Stanza iniziale mal creata");
+        }
+        
+        @Test
+        public void addStanzaVincenteTest() {
+            labirintoBuilder.addStanzaVincente("vincente");
+            labirintoBuilder.addStanzaTest("vincente");
+            assertEquals(true, labirintoBuilder.getStanzaTest().isVincente, "Stanza iniziale mal creata");
+        }
+
+        @Test
+        public void addAdiacenzaTest() {
+            labirintoBuilder.addAdiacenza("partenza", "arrivo", Direzione.EST);
+            labirintoBuilder.addStanzaTest("partenza");
+            String actual = labirintoBuilder.getStanzaTest().getStanzaAdiacente(Direzione.EST).getNome();
+            assertEquals(actual, "arrivo", "Stanza di arrivo spostamento mal impostata");
+        }
+
+        @Test
+        public void addAttrezzoTest() {
+            labirintoBuilder.addAttrezzo("stanzaConAttrezzo", "nomeAttrezzo", 1);
+            labirintoBuilder.addStanzaTest("stanzaConAttrezzo");
+            Boolean actual = labirintoBuilder.getStanzaTest().hasAttrezzo("nomeAttrezzo");
+            assertTrue(actual, "Non vedo l'attrezzo nella stanza");
+        }
+
+    }
+
 }

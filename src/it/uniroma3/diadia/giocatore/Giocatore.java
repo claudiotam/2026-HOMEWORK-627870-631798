@@ -36,11 +36,13 @@ public class Giocatore {
             ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione");
             return;
         }
+
         Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(direzione);
         if (prossimaStanza == null) {
             ioconsole.mostraMessaggio("Direzione inesistente");
             return;
         }
+        
         stanzaCorrente = prossimaStanza;
         ioconsole.mostraMessaggio("Ora ti trovi in: " + stanzaCorrente.getNome());
     }

@@ -25,8 +25,8 @@ class PartitaTest {
         IO ioconsole = new IOConsole();
 
         //crea un labirinto
-        labirinto = new Labirinto();
-        labirinto.creaLabirintoBase();
+        Labirinto.LabirintoBuilder builder = new Labirinto.LabirintoBuilder();
+        Labirinto labirinto = builder.creaLabirintoBase().getLabirinto();
 
         //crea un giocatore
         giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());

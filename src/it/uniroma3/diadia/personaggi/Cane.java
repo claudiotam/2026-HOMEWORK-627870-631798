@@ -9,13 +9,13 @@ public class Cane extends Personaggio {
     private static final String NOME_DEFAULT = "Ilcane";    
     private static final String PRESENTAZIONE_DEFAULT = "La mia qualifica è: Cane. Grazie e Arrivederci. ";
     
-    private String nome_attrezzo_gradito;
-    private boolean ti_ho_gia_morso;
+    private String nomeAttrezzoGradito;
+    private boolean tiHoGiaMorso;
 
     public Cane(IO ioconsole, String nome, String presentazione, String nome_attrezzo_gradito) {
         super(ioconsole, nome, presentazione);
-        this.ti_ho_gia_morso = false;
-        this.nome_attrezzo_gradito = nome_attrezzo_gradito;
+        this.tiHoGiaMorso = false;
+        this.nomeAttrezzoGradito = nome_attrezzo_gradito;
     }
 
     public Cane(IO ioconsole) {
@@ -24,17 +24,17 @@ public class Cane extends Personaggio {
 
     @Override
     public void riceviRegalo(Partita partita, Attrezzo attrezzo) {
-        if (attrezzo.getNome().equals(nome_attrezzo_gradito)) {
+        if (attrezzo.getNome().equals(nomeAttrezzoGradito)) {
             ioconsole.mostraMessaggio("Grazie! Il cibo mi piace. Ti regalo un CFU. ");
             partita.getGiocatore().mettiUnCfu();
         }
         else {
             ioconsole.mostraMessaggio("Questo cibo fa schifo!");
 
-            if (!ti_ho_gia_morso) {
-                ioconsole.mostraMessaggio("Ti mordo! Hai perso un CFU. ");
+            if (!tiHoGiaMorso) {
+                ioconsole.mostraMessaggio("Ti mordo! Perdi un CFU. ");
                 partita.getGiocatore().togliUnCfu();
-                ti_ho_gia_morso = true;
+                tiHoGiaMorso = true;
             }
 
             Stanza stanzaCorrente = partita.getGiocatore().getStanzaCorrente();

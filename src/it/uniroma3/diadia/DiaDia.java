@@ -23,8 +23,11 @@ public class DiaDia {
         IO ioconsole = new IOConsole();
 
         //crea un labirinto
-        Labirinto labirinto = new Labirinto();
-        labirinto.creaLabirintoBase();
+
+        // Setup per ogni test, viene eseguito prima di ciascun test
+        // Crea un nuovo labirinto
+        Labirinto.LabirintoBuilder builder = new Labirinto.LabirintoBuilder();
+        Labirinto labirinto = builder.creaLabirintoBase().getLabirinto();
 
         //crea dei personaggi
         labirinto.getStanzaIniziale().setPersonaggio(new Cane(ioconsole));
@@ -34,9 +37,9 @@ public class DiaDia {
 
         //Tenta il caricamento delle properties
         Configuratore conf = new Configuratore();
-        if ((conf.carica())&&(conf.getCFU()!=null)) {
+        if (conf.getCFU()!=null) {
             giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale(), conf.getCFU());
-            ioconsole.mostraMessaggio("<<file properties caricato correttamente>>");
+            ioconsole.mostraMessaggio("<<file properties caricato correttamente, CFU letti>>");
         }
         else {
             giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());

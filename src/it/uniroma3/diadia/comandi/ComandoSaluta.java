@@ -14,6 +14,6 @@ public class ComandoSaluta extends Comando {
             ioconsole.mostraMessaggio("nessun personaggio da salutare qui");
             return;
         }
-        stanzaCorrente.getPersonaggio().saluta();
+        stanzaCorrente.getPersonaggio().riceviSaluto();
     }
 }

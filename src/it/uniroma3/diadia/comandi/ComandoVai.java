@@ -18,20 +18,18 @@ public class ComandoVai extends Comando {
             return;
         }
 
-        Direzione direzione = getDirezione();
-        if (direzione == null) {
+        String nomeDirezione = this.parametro;
+        if (nomeDirezione == null) {
             ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione");
+            return;
+        }
+
+        Direzione direzione = Direzione.fromString(nomeDirezione);
+        if (direzione == null) {
+            ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione valida (nord sud est ovest)");
             return;
         }
         
         giocatore.vai(direzione);
-    }
-
-    Direzione getDirezione() {
-        for (Direzione d : Direzione.values()) {
-            if (d.name().equalsIgnoreCase(this.parametro))
-                return d;
-        }
-        return null;
     }
 }

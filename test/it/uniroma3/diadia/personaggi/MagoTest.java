@@ -24,11 +24,11 @@ public class MagoTest {
         
         mago = new Mago(ioconsole);
 
-        Labirinto labirinto = new Labirinto();
-        Stanza stanzaunica = new Stanza("stanzaunica");
-        stanzaunica.setPersonaggio(mago);
-        labirinto.setStanzaIniziale(stanzaunica);
-        
+        Labirinto.LabirintoBuilder builder = new Labirinto.LabirintoBuilder();
+        builder.addStanzaIniziale("stanzaunica");
+        Labirinto labirinto = builder.getLabirinto();
+        labirinto.getStanzaIniziale().setPersonaggio(mago);
+
         Giocatore giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());
 
         this.partita = new Partita(ioconsole, giocatore);

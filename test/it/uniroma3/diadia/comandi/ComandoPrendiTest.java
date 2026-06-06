@@ -21,8 +21,8 @@ public class ComandoPrendiTest {
         IO ioconsole = new IOConsole();
 
         //crea un labirinto
-        Labirinto labirinto = new Labirinto();
-        labirinto.creaLabirintoBase();
+        Labirinto.LabirintoBuilder builder = new Labirinto.LabirintoBuilder();
+        Labirinto labirinto = builder.creaLabirintoBase().getLabirinto();
 
         //crea un giocatore
         Giocatore giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());

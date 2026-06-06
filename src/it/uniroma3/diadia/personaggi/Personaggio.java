@@ -7,23 +7,23 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 public abstract class Personaggio {
     private   String  nome;
     private   String  presentazione;
-    private   boolean haSalutato;
+    private   boolean hoSalutato;
     protected IO      ioconsole;
 
     public Personaggio(IO ioconsole, String nome, String presentazione) {
         this.ioconsole = ioconsole;
         this.nome = nome;
         this.presentazione = presentazione;
-        this.haSalutato = false;
+        this.hoSalutato = false;
     }
 
     public String getNome() {
         return this.nome;
     }
 
-    public void saluta() {
-        if (!haSalutato) {
-            this.haSalutato = true;
+    public void riceviSaluto() {
+        if (!hoSalutato) {
+            hoSalutato = true;
             ioconsole.mostraMessaggio("Ciao, il mio nome è " + this.getNome() + ". " + this.presentazione);
         }
         else {
