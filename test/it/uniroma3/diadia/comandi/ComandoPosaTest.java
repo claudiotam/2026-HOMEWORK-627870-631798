@@ -10,6 +10,7 @@ import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class ComandoPosaTest {
     Partita partita;
@@ -24,8 +25,11 @@ public class ComandoPosaTest {
         Labirinto labirinto = new Labirinto();
         labirinto.creaLabirintoBase();
 
+        //crea un giocatore
+        Giocatore giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());
+
         //crea partita con inclusi giocatore, borsa (il comando posa lavora su una partita)
-        this.partita = new Partita(ioconsole, labirinto);
+        this.partita = new Partita(ioconsole, giocatore);
     }
 
     @Test

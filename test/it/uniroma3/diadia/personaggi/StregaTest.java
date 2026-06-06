@@ -10,6 +10,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class StregaTest {
     private Partita   partita;
@@ -27,7 +28,9 @@ public class StregaTest {
         stanzaunica.setPersonaggio(strega);
         labirinto.setStanzaIniziale(stanzaunica);
         
-        this.partita = new Partita(ioconsole, labirinto);
+        Giocatore giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());
+
+        this.partita = new Partita(ioconsole, giocatore);
     }
 
     @Test

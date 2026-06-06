@@ -30,7 +30,9 @@ public class CaneTest {
         stanzaunica.setPersonaggio(cane);
         labirinto.setStanzaIniziale(stanzaunica);
         
-        this.partita = new Partita(ioconsole, labirinto);
+        Giocatore giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());
+
+        this.partita = new Partita(ioconsole, giocatore);
     }
 
     @Test

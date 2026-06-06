@@ -21,13 +21,18 @@ class PartitaTest {
     
     @BeforeEach
     void setUp() {
-        // Setup del test, viene eseguito prima di ogni test.
-        IOConsole ioconsole = new IOConsole();
-        Labirinto labirinto = new Labirinto();
+        //crea una console (il comando posa ha bisogno di una console per mostrare gli errori)
+        IO ioconsole = new IOConsole();
+
+        //crea un labirinto
+        labirinto = new Labirinto();
         labirinto.creaLabirintoBase();
-        this.partita     = new Partita(ioconsole, labirinto);
-        this.giocatore   = this.partita.getGiocatore();
-        this.labirinto   = this.partita.getLabirinto();
+
+        //crea un giocatore
+        giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());
+
+        //crea partita con inclusi giocatore, borsa (il comando posa lavora su una partita)
+        partita = new Partita(ioconsole, giocatore);
     }
 
     /*
@@ -47,8 +52,8 @@ class PartitaTest {
 
     @Test
     public void testVittoria() {
-        // Impostiamo la stanza corrente su quella finale e verifichiamo la vittoria
-        this.giocatore.setStanzaCorrente(this.labirinto.getStanzaVincente());
+        // Impostiamo la stanza corrente come vincente e verifichiamo la vittoria
+        this.giocatore.getStanzaCorrente().isVincente = true;
         assertTrue(this.partita.vinta(), "La partita dovrebbe essere vinta se il giocatore è nella stanza finale");
     }
 
@@ -86,11 +91,11 @@ class PartitaTest {
         IOSimulator iosimulator = new IOSimulator(messaggi_in);
 
         //crea il labirinto base
-        Labirinto labirinto = new Labirinto();
-        labirinto.creaLabirintoBase();
+        //Labirinto labirinto = new Labirinto();
+        //labirinto.creaLabirintoBase();
 
         //crea partita
-        Partita partita_sim = new Partita(iosimulator, labirinto);
+        Partita partita_sim = new Partita(iosimulator, giocatore);
 
         //lancia
         partita_sim.gioca();
@@ -114,11 +119,11 @@ class PartitaTest {
         IOSimulator iosimulator = new IOSimulator(messaggiIn);
 
         //crea un labirinto
-        Labirinto labirinto = new Labirinto();
-        labirinto.creaLabirintoBase();
+        //Labirinto labirinto = new Labirinto();
+        //labirinto.creaLabirintoBase();
 
         //crea partita
-        Partita partita_sim = new Partita(iosimulator, labirinto);
+        Partita partita_sim = new Partita(iosimulator, giocatore);
 
         //modifica i cfu giocatore
         partita_sim.getGiocatore().setCfu(36);

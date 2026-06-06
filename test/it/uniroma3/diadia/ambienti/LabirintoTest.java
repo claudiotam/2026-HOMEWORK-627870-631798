@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 public class LabirintoTest {
     private Labirinto labirinto;
     private Stanza stanzaIniziale;
-    private Stanza stanzaVincente;
 
     @BeforeEach
     public void setUp() {
@@ -21,16 +20,11 @@ public class LabirintoTest {
         this.labirinto = new Labirinto();
         labirinto.creaLabirintoBase();
         this.stanzaIniziale = this.labirinto.getStanzaIniziale();
-        this.stanzaVincente = this.labirinto.getStanzaVincente();
     }
 
     @Test
-    void LaStanzaVincenteEBiblioteca() {
-        assertEquals("Biblioteca", this.labirinto.getStanzaVincente().getNome());
-    }
-    @Test
     void VincenteNordIniziale() {
-        assertEquals(this.labirinto.getStanzaVincente(), this.labirinto.getStanzaIniziale().getStanzaAdiacente(Direzione.NORD));
+        assertTrue(this.labirinto.getStanzaIniziale().getStanzaAdiacente(Direzione.NORD).isVincente);
     }
     
     @Test
@@ -41,10 +35,11 @@ public class LabirintoTest {
     }
 
     @Test
-    public void testStanzaVincente() {
+    public void BibliotecaNordIniziale() {
         // Verifica che la stanza vincente sia corretta
-        assertNotNull(this.stanzaVincente, "La stanza vincente non dovrebbe essere null");
-        assertEquals("Biblioteca", this.stanzaVincente.getNome(), "La stanza vincente dovrebbe essere 'Biblioteca'");
+        Stanza stanzaNord = labirinto.getStanzaIniziale().getStanzaAdiacente(Direzione.NORD);
+        assertNotNull(stanzaNord, "La stanza vincente non dovrebbe essere null");
+        assertEquals("Biblioteca", stanzaNord.getNome(), "La stanza nord dovrebbe essere 'Biblioteca'");
     }
    
     @Test

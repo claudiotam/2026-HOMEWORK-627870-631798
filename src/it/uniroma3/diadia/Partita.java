@@ -29,14 +29,11 @@ public class Partita {
 
     private boolean finita;
     private Giocatore giocatore;
-    private Labirinto labirinto;
     private IO ioconsole;
     
-    public Partita(IO ioconsole, Labirinto labirinto) {
+    public Partita(IO ioconsole, Giocatore giocatore) {
         this.ioconsole = ioconsole;
-        this.labirinto = labirinto;
-        this.giocatore = new Giocatore(ioconsole);
-        giocatore.setStanzaCorrente(labirinto.getStanzaIniziale());
+        this.giocatore = giocatore;
         this.finita = false;
     }
 
@@ -68,10 +65,10 @@ public class Partita {
         
         if (this.isFinita()) { 
             if (this.vinta()) {
-                this.ioconsole.mostraMessaggio("Hai vinto!");
+                ioconsole.mostraMessaggio("Hai vinto!");
             }
             if (giocatore.hasZeroCfu()) {
-                this.ioconsole.mostraMessaggio("Hai perso! Non hai manco un CFU!");
+                ioconsole.mostraMessaggio("Hai perso! Non hai manco un CFU!");
             }
             this.fine();
             return true;
@@ -93,7 +90,7 @@ public class Partita {
      * @return vero se partita vinta
      */
     public boolean vinta() {
-        return this.giocatore.getStanzaCorrente()== this.labirinto.getStanzaVincente();
+        return this.giocatore.getStanzaCorrente().isVincente;
     }
 
     /**
@@ -116,12 +113,7 @@ public class Partita {
         return this.giocatore;
     }
 
-    public Labirinto getLabirinto() {
-        return this.labirinto;
-    }
-
     public void setLabirinto(Labirinto labirinto) {
-        this.labirinto = labirinto;
         giocatore.setStanzaCorrente(labirinto.getStanzaIniziale());
     }
 

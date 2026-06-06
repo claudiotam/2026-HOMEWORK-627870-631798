@@ -13,17 +13,39 @@
 package it.uniroma3.diadia;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.giocatore.Giocatore;
 import it.uniroma3.diadia.personaggi.Cane;
 
 public class DiaDia {
 
     public static void main(String[] argc) {
+        //crea una console (il comando posa ha bisogno di una console per mostrare gli errori)
         IO ioconsole = new IOConsole();
+
+        //crea un labirinto
         Labirinto labirinto = new Labirinto();
         labirinto.creaLabirintoBase();
+
+        //crea dei personaggi
         labirinto.getStanzaIniziale().setPersonaggio(new Cane(ioconsole));
 
-        Partita partita = new Partita(ioconsole, labirinto);
+        //crea un giocatore
+        Giocatore giocatore;
+
+        //Tenta il caricamento delle properties
+        Configuratore conf = new Configuratore();
+        if ((conf.carica())&&(conf.getCFU()!=null)) {
+            giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale(), conf.getCFU());
+            ioconsole.mostraMessaggio("<<file properties caricato correttamente>>");
+        }
+        else {
+            giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());
+        }
+
+        //crea partita con inclusi giocatore, borsa (il comando posa lavora su una partita)
+        Partita partita = new Partita(ioconsole, giocatore);
+
+
         partita.gioca();
     }
 }

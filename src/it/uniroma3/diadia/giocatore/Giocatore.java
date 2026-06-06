@@ -9,21 +9,22 @@ import it.uniroma3.diadia.personaggi.Personaggio;
 
 public class Giocatore {
 
-    static final private int CFU_INIZIALI = 12;
+    private static final int CFU_INIZIALI = 12;
 
     private Borsa borsa;
     private int cfu;
     private Stanza stanzaCorrente;
     private IO ioconsole;
 
-    public Giocatore(IO ioconsole) {
-        this(ioconsole, CFU_INIZIALI);
+    public Giocatore(IO ioconsole, Stanza stanzaIniziale) {
+        this(ioconsole, stanzaIniziale, CFU_INIZIALI);
     }
 
-    public Giocatore(IO ioconsole, int cfu_iniziali) {
+    public Giocatore(IO ioconsole, Stanza stanzaIniziale, int cfu_iniziali) {
         this.ioconsole = ioconsole;
         this.borsa = new Borsa();
         this.cfu = cfu_iniziali;
+        this.stanzaCorrente = stanzaIniziale;
     }
 
     /**
@@ -32,50 +33,50 @@ public class Giocatore {
      */
     public void vai(Direzione direzione) {
         if (direzione == null) {
-            this.ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione");
+            ioconsole.mostraMessaggio("Dove vuoi andare? Specifica una direzione");
             return;
         }
         Stanza prossimaStanza = stanzaCorrente.getStanzaAdiacente(direzione);
         if (prossimaStanza == null) {
-            this.ioconsole.mostraMessaggio("Direzione inesistente");
+            ioconsole.mostraMessaggio("Direzione inesistente");
             return;
         }
         stanzaCorrente = prossimaStanza;
-        this.ioconsole.mostraMessaggio("Ora ti trovi in: " + stanzaCorrente.getNome());
+        ioconsole.mostraMessaggio("Ora ti trovi in: " + stanzaCorrente.getNome());
     }
 
     /*
      * forwarding dei metodi borsa
      */
     public boolean addAttrezzo(Attrezzo attrezzo) {
-        return this.borsa.addAttrezzo(attrezzo) ;
+        return borsa.addAttrezzo(attrezzo) ;
     }
     
     public boolean hasAttrezzo(String nomeAttrezzo) {
-    	return this.borsa.hasAttrezzo(nomeAttrezzo);
+    	return borsa.hasAttrezzo(nomeAttrezzo);
     }
     
     public Attrezzo getAttrezzo(String nomeAttrezzo) {
-    	return this.borsa.getAttrezzo(nomeAttrezzo);
+    	return borsa.getAttrezzo(nomeAttrezzo);
     }
     
     public void removeAttrezzo(String attrezzo) {
-        this.borsa.removeAttrezzo(attrezzo) ;
+        borsa.removeAttrezzo(attrezzo) ;
     }
 
     /*
      * metodi gestione cfu
      */
     public void mettiUnCfu() {
-    	this.cfu ++;
+    	cfu ++;
     }
     
     public boolean hasZeroCfu() {
-    	return this.cfu <= 0;
+    	return cfu <= 0;
     }
 
     public int getCfu() {
-        return this.cfu;
+        return cfu;
     }
 
     public void setCfu(int cfu) {
@@ -83,7 +84,7 @@ public class Giocatore {
     }
 
     public void togliUnCfu() {
-        this.cfu--;
+        cfu--;
     }
     
     /*
@@ -91,74 +92,74 @@ public class Giocatore {
      * normalmente il giocatore si imposta la stanza da sè
      */
     public Stanza getStanzaCorrente() {
-        return this.stanzaCorrente;
+        return stanzaCorrente;
     }
 
     public void setStanzaCorrente(Stanza stanza) {
-        this.stanzaCorrente = stanza;
+        stanzaCorrente = stanza;
     }
 
     public Borsa getBorsa() {
-        return this.borsa;
+        return borsa;
     }
 
     /*
      * metodi prendi e posa attrezzo
      */
     public void prendi(String nomeAttrezzo) {
-        boolean trovato = this.stanzaCorrente.hasAttrezzo(nomeAttrezzo);
+        boolean trovato = stanzaCorrente.hasAttrezzo(nomeAttrezzo);
         if (!trovato) {
             ioconsole.mostraMessaggio("attrezzo non trovato");
             return;
         }
 
-        Attrezzo attrezzo = this.stanzaCorrente.getAttrezzo(nomeAttrezzo);
-        boolean centra = this.borsa.acceptsAttrezzo(attrezzo);
+        Attrezzo attrezzo = stanzaCorrente.getAttrezzo(nomeAttrezzo);
+        boolean centra = borsa.acceptsAttrezzo(attrezzo);
         if (!centra) {
             ioconsole.mostraMessaggio("attrezzo non c'entra nella borsa");
             return;
         }
 
-        this.stanzaCorrente.removeAttrezzo(nomeAttrezzo);
-        this.borsa.addAttrezzo(attrezzo);
+        stanzaCorrente.removeAttrezzo(nomeAttrezzo);
+        borsa.addAttrezzo(attrezzo);
         ioconsole.mostraMessaggio("attrezzo preso");
     }
 
     public void posa(String nomeAttrezzo) {
-        boolean trovato = this.borsa.hasAttrezzo(nomeAttrezzo);
+        boolean trovato = borsa.hasAttrezzo(nomeAttrezzo);
         if (!trovato) {
             ioconsole.mostraMessaggio("attrezzo da posare non trovato nella borsa");
             return;
         }
 
-        Attrezzo attrezzo = this.borsa.getAttrezzo(nomeAttrezzo);
-        boolean centra = this.stanzaCorrente.acceptsAttrezzo(attrezzo);
+        Attrezzo attrezzo = borsa.getAttrezzo(nomeAttrezzo);
+        boolean centra = stanzaCorrente.acceptsAttrezzo(attrezzo);
         if (!centra) {
             ioconsole.mostraMessaggio("attrezzo non c'entra");
             return;
         }
         
-        this.borsa.removeAttrezzo(nomeAttrezzo);
-        this.stanzaCorrente.addAttrezzo(attrezzo);
+        borsa.removeAttrezzo(nomeAttrezzo);
+        stanzaCorrente.addAttrezzo(attrezzo);
         ioconsole.mostraMessaggio("attrezzo posato");
     }
 
     public void regala(Partita partita, String nomeAttrezzo) {
-        boolean trovato = this.borsa.hasAttrezzo(nomeAttrezzo);
+        boolean trovato = borsa.hasAttrezzo(nomeAttrezzo);
         if (!trovato) {
             ioconsole.mostraMessaggio("attrezzo da regalare non trovato nella borsa");
             return;
         }
 
-        Attrezzo attrezzo = this.borsa.getAttrezzo(nomeAttrezzo);
+        Attrezzo attrezzo = borsa.getAttrezzo(nomeAttrezzo);
 
-        if (!this.stanzaCorrente.hasPersonaggio()) {
+        if (!stanzaCorrente.hasPersonaggio()) {
             ioconsole.mostraMessaggio("in questa stanza non c'è alcun personaggio a cui regalare");
             return;
         }
 
-        Personaggio personaggio = this.stanzaCorrente.getPersonaggio();
-        this.borsa.removeAttrezzo(nomeAttrezzo);
+        Personaggio personaggio = stanzaCorrente.getPersonaggio();
+        borsa.removeAttrezzo(nomeAttrezzo);
         ioconsole.mostraMessaggio("attrezzo regalato");
         personaggio.riceviRegalo(partita, attrezzo);
     }

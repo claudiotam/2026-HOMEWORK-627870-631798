@@ -1,10 +1,8 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
-public class ComandoFine implements Comando {
-
+public class ComandoFine extends Comando {
     /**
      * esecuzione del comando
      */
@@ -12,16 +10,4 @@ public class ComandoFine implements Comando {
     public void esegui(Partita partita) {
         partita.setFinita();
     }
-
-    /*
-     * impostazione del parametro (inutile, ma richiesto dalla interface)
-     */
-    @Override
-    public void setParametro(String parametro) {}
-
-    /* 
-     * impostazione della console (inutile, ma richiesto dalla interface)
-     */
-    @Override
-    public void setIOConsole(IO ioconsole) {}
 }

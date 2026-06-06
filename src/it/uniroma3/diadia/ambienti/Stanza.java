@@ -13,7 +13,6 @@ package it.uniroma3.diadia.ambienti;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -24,11 +23,13 @@ public class Stanza {
 
     private String nome;
 
-    private HashSet<Attrezzo> attrezzi;
+    private HashMap<String, Attrezzo> attrezzi;
 
     private HashMap<Direzione, Stanza> stanzeAdiacenti;
 
     private Personaggio personaggio;
+
+    public boolean isVincente;
 
     public void assertNomeStanzaNotNull(String nomeStanza) {
         if(nomeStanza == null) {
@@ -51,7 +52,8 @@ public class Stanza {
         assertNomeStanzaNotNull(nomeStanza);
         this.nome = nomeStanza;
         this.stanzeAdiacenti = new HashMap<>();
-        this.attrezzi = new HashSet<>();
+        this.attrezzi = new HashMap<>();
+        this.isVincente = false;
     }
 
     /**
@@ -63,6 +65,13 @@ public class Stanza {
     public void impostaStanzaAdiacente(Direzione direzione, Stanza stanza) {
         if (stanza == null) stanzeAdiacenti.remove(direzione);
         stanzeAdiacenti.put(direzione, stanza);
+    }
+
+    /*
+    * overload necessario per far funzionare CaricatoreLabirintoCrescenzi
+    */
+    public void impostaStanzaAdiacente(String nomeDirezione, Stanza stanza) {
+        impostaStanzaAdiacente(Direzione.valueOf(nomeDirezione.toUpperCase()), stanza);
     }
 
     /**
@@ -134,7 +143,7 @@ public class Stanza {
      */
     public boolean addAttrezzo(Attrezzo attrezzo) {
     	if (!acceptsAttrezzo(attrezzo)) return false;
-        attrezzi.add(attrezzo);
+        attrezzi.put(attrezzo.getNome(), attrezzo);
         return true;
     }
 
@@ -143,7 +152,7 @@ public class Stanza {
      * @return true se l'attrezzo esiste nella stanza, false altrimenti.
      */
     public boolean hasAttrezzo(String nomeAttrezzo) {
-        return attrezzi.contains(new Attrezzo(nomeAttrezzo,1));
+        return attrezzi.containsKey(nomeAttrezzo);
     }
 
     /**
@@ -153,12 +162,7 @@ public class Stanza {
      *            null se l'attrezzo non e' presente.
      */
     public Attrezzo getAttrezzo(String nomeAttrezzo) {
-        for (Attrezzo at : attrezzi) {
-            if (at.equals(new Attrezzo(nomeAttrezzo,1))) {
-                return at;
-            }
-        }
-        return null;
+        return attrezzi.get(nomeAttrezzo);
     }
 
     /**
@@ -167,7 +171,7 @@ public class Stanza {
      * @return true se l'attrezzo e' stato rimosso, false altrimenti
      */
     public void removeAttrezzo(String nomeAttrezzo) {
-        attrezzi.remove(new Attrezzo(nomeAttrezzo, 1));
+        attrezzi.remove(nomeAttrezzo);
     }
 
     public boolean hasPersonaggio() {
@@ -190,7 +194,7 @@ public class Stanza {
     metodo getattrezzi, utile SOLO alla classe LabirintoBuilderTestCrescenzi
     */
     public List<Attrezzo> getAttrezzi() {
-        return new ArrayList<Attrezzo>(attrezzi);
+        return new ArrayList<Attrezzo>(attrezzi.values());
     }
 
     /**
@@ -213,7 +217,7 @@ public class Stanza {
 
         if (!this.isEmpty()) {
             s.append("Attrezzi nella stanza: ");
-            for (Attrezzo at : attrezzi)
+            for (Attrezzo at : attrezzi.values())
                 s.append(at.toString() + " ");
         } else
             s.append("Nessun attrezzo nella stanza");
@@ -229,5 +233,8 @@ public class Stanza {
         if (!(o instanceof Stanza)) return false;
         Stanza st = (Stanza) o;
         return this.nome.equals(st.getNome());
+    }
+    public int hashCode() {
+        return this.nome.hashCode();
     }
 }

@@ -4,7 +4,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class Labirinto {
     Stanza stanzaIniziale;
-    Stanza stanzaVincente;
+    Stanza ultimaStanzaVincenteAggiunta;
 
     public Labirinto() {
     }
@@ -102,23 +102,27 @@ public class Labirinto {
         this.stanzaIniziale = atrio;
 
         // il gioco finisce nella biblioteca
-        this.stanzaVincente = bibliot;
+        setStanzaVincente(bibliot);
     }
 
     public void setStanzaVincente(Stanza s) {
-        this.stanzaVincente = s;
+        s.isVincente = true;
+        ultimaStanzaVincenteAggiunta = s;
     }
 
     public void setStanzaIniziale(Stanza s) {
         this.stanzaIniziale = s;
     }
 
-    public Stanza getStanzaVincente() {
-        return this.stanzaVincente;
-    }
-
     public Stanza getStanzaIniziale() {
         return this.stanzaIniziale;
+    }
+
+    /*
+    * metodo inutile/dannoso, introdotto per compatibilità con LabirintoBuilderTestCrescenzi
+    */
+    public Stanza getStanzaVincente() {
+        return ultimaStanzaVincenteAggiunta;
     }
 
 }

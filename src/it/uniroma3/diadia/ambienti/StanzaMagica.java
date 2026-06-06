@@ -31,21 +31,16 @@ public class StanzaMagica extends Stanza {
 
     @Override
     public boolean addAttrezzo(Attrezzo attrezzo) {
-        //nota, la stanza ha vincoli di capienza di peso/quantita/altro; prima di invertire devo testare i vincoli
-        boolean test = super.addAttrezzo(attrezzo);
-        if (!test) return false;
-        //vincoli superati, inverto
-        if (this.posatureResidue == 0) {
-            this.modificaAttrezzo(attrezzo);
+        if (posatureResidue > 0) {
+            posatureResidue --;
         }
         else {
-            this.posatureResidue --;
+            //la modifica del nome rende inutilizzabili tutte le hashmap e hashset che contengono l'attrezzo
+            attrezzo.invertiNomeAumentaPeso();
         }
-        return true;
-    }
-
-    private void modificaAttrezzo(Attrezzo attrezzo) {
-        attrezzo.invertiNomeAumentaPeso();
+        //nota, la stanza ha vincoli di capienza di peso/quantita/altro; prima di inserire devo testare i vincoli
+        if (!acceptsAttrezzo(attrezzo)) return false;
+        else return super.addAttrezzo(attrezzo);
     }
 
     /*

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 /**
@@ -19,7 +20,7 @@ class GiocatoreTest {
 	void setUp() {
 		// Setup per ogni test, viene eseguito prima di ciascun test
 		IO ioconsole = new IOConsole();
-		this.giocatore = new Giocatore(ioconsole);
+		this.giocatore = new Giocatore(ioconsole, new Stanza("vuoto"));
 	}
 
 	@Test

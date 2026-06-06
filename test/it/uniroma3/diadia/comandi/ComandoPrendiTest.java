@@ -10,22 +10,25 @@ import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class ComandoPrendiTest {
     Partita partita;
-    IO ioconsole;
 
     @BeforeEach
     public void setup() {
         //crea una console (il comando posa ha bisogno di una console per mostrare gli errori)
-        this.ioconsole = new IOConsole();
+        IO ioconsole = new IOConsole();
 
         //crea un labirinto
         Labirinto labirinto = new Labirinto();
         labirinto.creaLabirintoBase();
 
+        //crea un giocatore
+        Giocatore giocatore = new Giocatore(ioconsole, labirinto.getStanzaIniziale());
+
         //crea partita con inclusi giocatore, borsa (il comando posa lavora su una partita)
-        this.partita = new Partita(ioconsole, labirinto);
+        partita = new Partita(ioconsole, giocatore);
     }
 
     @Test
@@ -36,7 +39,7 @@ public class ComandoPrendiTest {
 
         //crea un comando di prenditura
         Comando com_prendi   = new ComandoPrendi();
-        com_prendi.setIOConsole(ioconsole);
+        com_prendi.setIOConsole(new IOConsole());
         com_prendi.setParametro("attrezzo test");
 
         com_prendi.esegui(partita);

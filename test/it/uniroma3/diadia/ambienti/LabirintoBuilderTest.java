@@ -32,23 +32,23 @@ public class LabirintoBuilderTest {
     @Test
     public void addStanzaVincenteTest() {
         labirintoBuilder.addStanzaVincente("vincente");
-        String actual = labirintoBuilder.getLabirinto().getStanzaVincente().getNome();
-        assertEquals(actual, "vincente", "Stanza iniziale mal creata");
+        labirintoBuilder.addStanzaTest("vincente");
+        assertEquals(true, labirintoBuilder.getStanzaTest().isVincente, "Stanza iniziale mal creata");
     }
 
     @Test
     public void addAdiacenzaTest() {
         labirintoBuilder.addAdiacenza("partenza", "arrivo", Direzione.EST);
-        labirintoBuilder.addStanzaVincente("partenza");
-        String actual = labirintoBuilder.getLabirinto().getStanzaVincente().getStanzaAdiacente(Direzione.EST).getNome();
+        labirintoBuilder.addStanzaTest("partenza");
+        String actual = labirintoBuilder.getStanzaTest().getStanzaAdiacente(Direzione.EST).getNome();
         assertEquals(actual, "arrivo", "Stanza di arrivo spostamento mal impostata");
     }
 
     @Test
     public void addAttrezzoTest() {
         labirintoBuilder.addAttrezzo("stanzaConAttrezzo", "nomeAttrezzo", 1);
-        labirintoBuilder.addStanzaVincente("stanzaConAttrezzo");
-        Boolean actual = labirintoBuilder.getLabirinto().getStanzaVincente().hasAttrezzo("nomeAttrezzo");
+        labirintoBuilder.addStanzaTest("stanzaConAttrezzo");
+        Boolean actual = labirintoBuilder.getStanzaTest().hasAttrezzo("nomeAttrezzo");
         assertTrue(actual, "Non vedo l'attrezzo nella stanza");
     }
 

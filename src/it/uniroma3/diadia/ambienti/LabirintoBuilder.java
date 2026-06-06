@@ -18,12 +18,21 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class LabirintoBuilder {
     private Labirinto labirinto;
-    private Map<String, Stanza> stanze;
+    private Map<String, Stanza> nome2stanza;
     private String nomeUltimaStanzaTrovata;
+    private Stanza stanzaTest;
 
     public LabirintoBuilder() {
         labirinto = new Labirinto();
-        stanze = new HashMap<>();
+        nome2stanza = new HashMap<>();
+    }
+
+    public void addStanzaTest(String nomeStanza) {
+        this.stanzaTest = trovaStanza(nomeStanza);
+    }
+
+    public Stanza getStanzaTest() {
+        return this.stanzaTest;
     }
 
     private Stanza trovaStanza(String nomeStanza) {
@@ -31,12 +40,12 @@ public class LabirintoBuilder {
             throw new RuntimeException("il nome stanza è obbligatorio, impossibile continuare");
         }
         nomeUltimaStanzaTrovata = nomeStanza;
-        if (stanze.containsKey(nomeStanza)) {
-            return stanze.get(nomeStanza);
+        if (nome2stanza.containsKey(nomeStanza)) {
+            return nome2stanza.get(nomeStanza);
         }
         else {
             Stanza stanza = new Stanza(nomeStanza);
-            stanze.put(nomeStanza, stanza);
+            nome2stanza.put(nomeStanza, stanza);
             return stanza;
         }
     }
@@ -47,37 +56,37 @@ public class LabirintoBuilder {
     }
 
     public LabirintoBuilder addStanzaMagica(String nomeStanzaMagica, int numeroPosature) {
-        if (stanze.containsKey(nomeStanzaMagica)) {
+        if (nome2stanza.containsKey(nomeStanzaMagica)) {
             throw new RuntimeException("non puoi creare una stanza magica con un nome già creato");
         }
         else {
             nomeUltimaStanzaTrovata = nomeStanzaMagica;
             Stanza stanza = new StanzaMagica(nomeStanzaMagica, numeroPosature);
-            stanze.put(nomeStanzaMagica, stanza);
+            nome2stanza.put(nomeStanzaMagica, stanza);
             return this;
         }
     }
 
     public LabirintoBuilder addStanzaBloccata(String nomeStanzaBloccata, String nomeDirezione, String nomeAttrezzoAntiblocco) {
-        if (stanze.containsKey(nomeStanzaBloccata)) {
+        if (nome2stanza.containsKey(nomeStanzaBloccata)) {
             throw new RuntimeException("non puoi creare una stanza bloccata con un nome già creato");
         }
         else {
             nomeUltimaStanzaTrovata = nomeStanzaBloccata;
             Stanza stanza = new StanzaBloccata(nomeStanzaBloccata, nomeAttrezzoAntiblocco, Direzione.valueOf(nomeDirezione.toUpperCase()));
-            stanze.put(nomeStanzaBloccata, stanza);
+            nome2stanza.put(nomeStanzaBloccata, stanza);
             return this;
         }
     }
 
     public LabirintoBuilder addStanzaBuia(String nomeStanzaBuia, String nomeAttrezzoAntibuio) {
-        if (stanze.containsKey(nomeStanzaBuia)) {
+        if (nome2stanza.containsKey(nomeStanzaBuia)) {
             throw new RuntimeException("non puoi creare una stanza buia con un nome già creato");
         }
         else {
             nomeUltimaStanzaTrovata = nomeStanzaBuia;
             Stanza stanza = new StanzaBuia(nomeStanzaBuia, nomeAttrezzoAntibuio);
-            stanze.put(nomeStanzaBuia, stanza);
+            nome2stanza.put(nomeStanzaBuia, stanza);
             return this;
         }
     }
@@ -120,7 +129,7 @@ public class LabirintoBuilder {
     
     public Map<String, Stanza> getListaStanze() {
         //lista?!?
-        return stanze;
+        return nome2stanza;
     }
 
     /*
